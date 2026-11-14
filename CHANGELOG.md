@@ -126,9 +126,11 @@ safer, and the installers and the release itself are stricter.
 - **Installers and packages:** removing the rpm leaves no empty Kinema folders.
   The README now says the Windows setup needs the internet once (for WebView2),
   and its Fedora line skips optional extras.
-- **Release builds are checked:** a release stops if the tag and the program's
-  version differ, downloads are pinned by checksum, and the installer must
-  start on Fedora before anything is published.
+- **How releases are built (for contributors):** a release stops if its
+  version number does not match the program's, the tools it downloads while
+  building are checked against known checksums, and the Linux `.rpm` package is
+  installed and started on a clean Fedora test system before anything is
+  published.
 
 ## [0.15.3] — 2026-11-12
 
