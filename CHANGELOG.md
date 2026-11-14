@@ -5,7 +5,7 @@ Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semantic
 versioning](https://semver.org/), with the usual caveat that a `0.x` release
 makes no stability promises.
 
-## [Unreleased]
+## [0.17.0] — 2026-11-14
 
 **Kinema is now Skrin Media Player.** Only the name and the icon change. Your
 library, settings, watch history and sign-ins stay as they are, and so does an
