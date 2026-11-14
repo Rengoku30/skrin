@@ -1,12 +1,12 @@
 # Design notes
 
-Why Kinema is built the way it is. This is the reasoning behind the code —
+Why Skrin is built the way it is. This is the reasoning behind the code —
 the architecture, how data moves through it, and the decisions that are
 settled rather than open.
 
 It was extracted from the README when that became a document for people who
 want to *use* the app rather than change it. Nothing here is required reading
-to run Kinema; all of it is required reading before arguing with how it works.
+to run Skrin; all of it is required reading before arguing with how it works.
 
 See also [GOTCHAS.md](GOTCHAS.md) for the traps, [HISTORY.md](HISTORY.md) for what
 was built and why, and [ROADMAP.md](ROADMAP.md) for what is next.
@@ -27,8 +27,8 @@ with no frame up shows the desktop.
 
 That is Windows. On Linux, Wayland has no way to put one program's surface
 under another's window, so mpv plays in a full-screen window of its own and
-draws Kinema's page over the video as a picture ([Platforms](#platforms)).
-Nothing shows through Kinema's window there, so it is opaque
+draws Skrin's page over the video as a picture ([Platforms](#platforms)).
+Nothing shows through Skrin's window there, so it is opaque
 (`tauri.linux.conf.json`) and only the page itself stays transparent, which is
 what the picture's see-through parts come from.
 
@@ -148,7 +148,7 @@ src/
                  check's stable id). engine.ts is the only
                  file that talks to mpv: open, pause, seek, stop, the
                  playback events, tracks, subtitles, volume and chapters in
-                 Kinema's own terms (all the player's own files use, but
+                 Skrin's own terms (all the player's own files use, but
                  for frame timing), and
                  mpvCommand/mpvGet/mpvSet for the parts that
                  are about mpv itself — stats, output check, sound routing,
@@ -213,7 +213,7 @@ capabilities.rs  What this build can do where it runs — examine equipment,
                  sleep, shut down, mpv's graphics interface — each answer
                  stated by the module that does the work (equipment::DETECTS,
                  equipment::DIRECT_AUDIO, display::switches — on Linux, whether
-                 the desktop is one Kinema can ask — power::can_* — on
+                 the desktop is one Skrin can ask — power::can_* — on
                  Linux, whether logind lets this session without a password).
 capabilities.ts  Asked once at startup; the interface shows or hides by the
                  answers, never by the system's name, which is for wording
@@ -358,7 +358,7 @@ the focus key it was left on; Back pops one and puts focus back on that control
 (`returnFocusTo`). Top-bar destinations start again from Home. This only works
 for controls with stable focus keys — see GOTCHAS.
 
-**Kinema moves the ring by the screen's structure, not by distance**
+**Skrin moves the ring by the screen's structure, not by distance**
 (round 7, 2026-10-31; `focusModel.ts`, `focusStore.ts`, `focusScroll.ts`,
 `focusEngine.tsx`). A screen is a tree of areas in document order — **row**
 (Left/Right along it, arriving lands on its current item), **column** (Up/
@@ -371,7 +371,7 @@ the owner's "neighbours only" by construction. Nothing is measured, so a
 button added, a row wrapping or a font that renders differently on Linux
 cannot change where an arrow goes, and the rules are unit tests
 (`focusModel.test.ts`) instead of timed browser runs. The store is
-synchronous and Kinema's own: the control holding the ring has the DOM focus
+synchronous and Skrin's own: the control holding the ring has the DOM focus
 too (roving tabindex, Tab and Shift+Tab from area to area), a click moves
 the ring where it pointed while hovering only highlights (CSS `:hover`; a
 pointer passing over a rail must not change where the keys land in it), and
@@ -546,15 +546,15 @@ seconds later everything queued goes in one request. SIMKL allows one write a
 second and suspends apps that keep exceeding it, so nothing is sent per item,
 nothing is polled, and a backlog goes a hundred at a time. The queue is what
 makes being offline harmless: rows leave only when SIMKL has accepted them.
-It only adds. Un-watching in Kinema removes nothing from SIMKL, which may have
+It only adds. Un-watching in Skrin removes nothing from SIMKL, which may have
 that watch from another app; and nothing is read back, so SIMKL can never
-change what Kinema says was watched. Signing in is SIMKL's device flow — a code
+change what Skrin says was watched. Signing in is SIMKL's device flow — a code
 and a QR code on screen, approval on a phone — so it works from a sofa and no
 secret has to live in the app.
 
 **Trakt is told only what it does not have.** Trakt, unlike SIMKL, keeps every
 play it is sent, so sending a history it partly has would show rewatches that
-never happened. At connect, Kinema reads the account's watched films and
+never happened. At connect, Skrin reads the account's watched films and
 episodes and queues only the rest; if the account cannot be read, the history
 waits rather than going blind. Its refresh tokens are single-use, so a new pair
 is stored the moment it arrives.
@@ -594,13 +594,13 @@ fails. Never sent to SIMKL or Trakt.
 one for Play (the last choice, else what the screen can show whole, HDR where
 it shows HDR, then pixels, then size; an edition is never preferred by itself).
 The choice is in `version_choice` (schema 33), keyed by the provider's ids like
-My list. Resume and watched stay shared across versions (`history.rs`). Kinema
+My list. Resume and watched stay shared across versions (`history.rs`). Skrin
 never deletes a duplicate.
 
 **Forced subtitles are not "subtitles on."** Subtitles off means no full
 subtitles; it has never meant missing what is said in another language. So a
 forced track in the language being spoken shows whenever full subtitles do
-not, as on a disc, and when the file has none Kinema can fetch one from
+not, as on a disc, and when the file has none Skrin can fetch one from
 OpenSubtitles — the one thing it fetches by itself, off by default, each file
 asked about once.
 
@@ -641,7 +641,7 @@ playing: ffprobe's reading of the file at scan time (`probe.rs`), the picture's
 measured shape (`aspect.rs`), and only for where it came from, the release
 name (`release.ts`). They describe the file — a Dolby Vision badge on a film
 Windows will send as HDR10 is still true of the file, and the stats panel says
-what was sent. Kinema's own lettering throughout, no brand logos; never
+what was sent. Skrin's own lettering throughout, no brand logos; never
 focusable, and under Play so the remote's landing spot does not move.
 
 **One layout, one scale knob — not a TV skin.** Every dimension in `ui.css` is in

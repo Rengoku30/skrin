@@ -16,7 +16,7 @@
  * is "where am I sitting", which has two answers; a percentage control would be
  * a preset UI by another name.
  *
- * Where Kinema has no window (Android: an app is the whole screen of a TV
+ * Where Skrin has no window (Android: an app is the whole screen of a TV
  * box), there is only the sofa: TV mode is always on, never asked, and cannot
  * be switched off (owner, 2026-10-04).
  */

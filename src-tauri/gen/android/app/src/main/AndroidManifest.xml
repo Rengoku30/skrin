@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <!-- So Kinema can tell whether this device has an All files access screen
+    <!-- So Skrin can tell whether this device has an All files access screen
          before offering it (Android 11's package visibility). -->
     <queries>
         <intent>

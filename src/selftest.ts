@@ -184,9 +184,9 @@ const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
   addLibraryRoot,
   listLibraryRoots,
   // A folder taken out, as Settings takes it out — e.g. single-film folders
-  // inside one that is about to be added whole (which Kinema refuses).
+  // inside one that is about to be added whole (which Skrin refuses).
   removeLibraryRoot,
-  // A network share Kinema opens itself, signed in to before it is added.
+  // A network share Skrin opens itself, signed in to before it is added.
   saveShareLogin,
   scanLibrary,
   runScanPipeline,
@@ -216,7 +216,7 @@ const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
     }
     return out;
   },
-  // Offering Kinema to Windows as a video player and taking it back, as the
+  // Offering Skrin to Windows as a video player and taking it back, as the
   // Settings buttons do (default_player.rs) — for a run in Windows Sandbox,
   // never on a PC whose own settings matter.
   playerOffer,
@@ -261,7 +261,7 @@ const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
   // with whichever keys the copied library has.
   matchUnmatched: async () =>
     matchFiles(await listUnmatched(2000), await loadProviderKeys(), () => {}),
-  // The engine's tracks, subtitles and volume in Kinema's terms (engine.ts),
+  // The engine's tracks, subtitles and volume in Skrin's terms (engine.ts),
   // whichever engine plays — so a plan can choose and read them back on a
   // device the way the track panel does.
   readTracks,
@@ -289,7 +289,7 @@ const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
     invoke('read_rate', { path, mb, seeks }),
   // Display switching only happens fullscreen, and Browse has no key for it.
   setFullscreen: (on: boolean) => getCurrentWindow().setFullscreen(on),
-  // Kinema's window, its screen, and the picture mpv draws, side by side:
+  // Skrin's window, its screen, and the picture mpv draws, side by side:
   // after a screen-mode switch a full-screen window must have the screen's
   // new size, not the old one (round 8, J).
   windowAndScreen: async () => {
@@ -555,7 +555,7 @@ export async function runSelfTest(plan: SelfTestPlan): Promise<void> {
     .then(() => note('on-top'))
     .catch((e) => note('on-top-failed', String(e)));
 
-  // The engine's events in Kinema's own terms, from whichever engine plays
+  // The engine's events in Skrin's own terms, from whichever engine plays
   // (Media3 on Android has none of mpv's below). Not the position: the clock
   // entries already say where it is.
   const offEngine = await onPlaybackEvent((event) => {

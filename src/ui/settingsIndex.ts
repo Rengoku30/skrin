@@ -54,7 +54,7 @@ export const SETTINGS_INDEX: SettingEntry[] = [
   // Playback
   {
     section: 'playback',
-    label: 'Where Kinema is used',
+    label: 'Where Skrin is used',
     about: 'TV mode desk window full screen F11 bigger text',
     values: ['At a desk', 'On a TV'],
     when: (can) => can.windowed,
@@ -149,7 +149,7 @@ export const SETTINGS_INDEX: SettingEntry[] = [
   {
     section: 'picture',
     label: 'Your equipment',
-    about: 'TV receiver screens sound what Kinema found',
+    about: 'TV receiver screens sound what Skrin found',
     when: (can) => can.equipment_detection,
   },
 

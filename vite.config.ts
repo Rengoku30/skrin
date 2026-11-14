@@ -34,7 +34,7 @@ export default defineConfig(async () => ({
   // project, each with its own tests. Left in, `vitest run` ran every copy's
   // tests as well as these (over a thousand files instead of a few hundred).
   test: {
-    // notes/ is a separate, private clone: its review scripts are not Kinema's tests.
+    // notes/ is a separate, private clone: its review scripts are not Skrin's tests.
     exclude: [...configDefaults.exclude, '.claude/**', 'notes/**'],
   },
 

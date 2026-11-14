@@ -1,6 +1,6 @@
-//! Whether a newer Kinema has been released.
+//! Whether a newer Skrin has been released.
 //!
-//! Kinema is a ZIP with no installer and no updater, so whoever downloaded it
+//! Skrin is a ZIP with no installer and no updater, so whoever downloaded it
 //! would otherwise stay on that version for good, never hearing of the fixes
 //! after it. This asks GitHub for the latest release's version number, once per
 //! launch, and nothing else: it downloads nothing and installs nothing, and a
@@ -12,7 +12,7 @@
 
 use serde::{Deserialize, Serialize};
 
-const LATEST: &str = "https://api.github.com/repos/Basswaves/kinema/releases/latest";
+const LATEST: &str = "https://api.github.com/repos/basswaves/skrin/releases/latest";
 const TIMEOUT: std::time::Duration = std::time::Duration::from_secs(6);
 
 #[derive(Serialize, Debug, PartialEq)]
@@ -69,7 +69,7 @@ pub async fn latest_release() -> Option<Release> {
     let client = tauri_plugin_http::reqwest::Client::builder()
         .timeout(TIMEOUT)
         // GitHub refuses API requests without one.
-        .user_agent(concat!("Kinema/", env!("CARGO_PKG_VERSION")))
+        .user_agent(concat!("Skrin/", env!("CARGO_PKG_VERSION")))
         .build()
         .ok()?;
 

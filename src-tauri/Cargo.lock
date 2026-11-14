@@ -2585,41 +2585,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "kinema"
-version = "0.16.0"
-dependencies = [
- "alsa",
- "flate2",
- "gtk",
- "image",
- "libc",
- "libloading 0.8.9",
- "log",
- "qrcode",
- "quick-xml 0.42.0",
- "rusqlite",
- "rusty-chromaprint",
- "serde",
- "serde_json",
- "smb",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-http",
- "tauri-plugin-libmpv",
- "tauri-plugin-opener",
- "tauri-plugin-single-instance",
- "tokio",
- "walkdir",
- "wayland-client",
- "wayland-protocols-wlr",
- "webkit2gtk",
- "webview2-com",
- "windows 0.61.3",
- "zbus",
-]
-
-[[package]]
 name = "libappindicator"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4775,6 +4740,41 @@ name = "siphasher"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ee5873ec9cce0195efcb7a4e9507a04cd49aec9c83d0389df45b1ef7ba2e649"
+
+[[package]]
+name = "skrin"
+version = "0.16.0"
+dependencies = [
+ "alsa",
+ "flate2",
+ "gtk",
+ "image",
+ "libc",
+ "libloading 0.8.9",
+ "log",
+ "qrcode",
+ "quick-xml 0.42.0",
+ "rusqlite",
+ "rusty-chromaprint",
+ "serde",
+ "serde_json",
+ "smb",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-http",
+ "tauri-plugin-libmpv",
+ "tauri-plugin-opener",
+ "tauri-plugin-single-instance",
+ "tokio",
+ "walkdir",
+ "wayland-client",
+ "wayland-protocols-wlr",
+ "webkit2gtk",
+ "webview2-com",
+ "windows 0.61.3",
+ "zbus",
+]
 
 [[package]]
 name = "slab"

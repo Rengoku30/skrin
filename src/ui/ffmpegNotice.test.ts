@@ -11,7 +11,7 @@ describe('ffmpegNoticeWanted', () => {
 });
 
 describe('ffmpegLacksWords', () => {
-  it('says nothing for a build that lacks nothing Kinema uses', () => {
+  it('says nothing for a build that lacks nothing Skrin uses', () => {
     expect(ffmpegLacksWords([])).toBeNull();
     expect(ffmpegLacksWords(['something-else'])).toBeNull();
   });

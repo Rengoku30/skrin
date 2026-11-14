@@ -123,7 +123,7 @@ export function useScreen({
   return { matchScreen, exit, toggleFullscreen, backOut };
 }
 
-/** Where the picture is mpv's own window (Linux) rather than in Kinema's. */
+/** Where the picture is mpv's own window (Linux) rather than in Skrin's. */
 function pictureHasOwnWindow(): boolean {
   return capabilitiesNow()?.mpv_video.own_window === true;
 }
@@ -139,7 +139,7 @@ function pictureHasOwnWindow(): boolean {
  * it, and shrinking a whole frame to one pixel is a scaling filter thousands
  * of samples wide: its shader took close to a minute to build, and mpv
  * answered nothing else meanwhile — not even the next film (2026-10-03).
- * Kinema's own window (Windows) leaves full screen first, as it always has.
+ * Skrin's own window (Windows) leaves full screen first, as it always has.
  */
 async function leaveFullscreen(): Promise<void> {
   if (pictureHasOwnWindow()) {

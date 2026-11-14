@@ -111,7 +111,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
     // The library database lives in app data, never next to the media —
     // network shares stay read-only as far as this app is concerned.
     let dir = data_dir(app)
-        .map_err(|e| format!("Kinema could not work out where to keep its library.\n\n{e}"))?;
+        .map_err(|e| format!("Skrin could not work out where to keep its library.\n\n{e}"))?;
 
     if selftest::plan_path().is_some() {
         let real = app
@@ -132,7 +132,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
 
     std::fs::create_dir_all(&dir).map_err(|e| {
         format!(
-            "Kinema could not create its data folder.\n\n{}\n\n{e}",
+            "Skrin could not create its data folder.\n\n{}\n\n{e}",
             dir.display()
         )
     })?;
@@ -142,7 +142,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
         // Not fatal: the app works without a log, it is just harder to help.
         eprintln!("could not start the log in {}: {e}", dir.display());
     }
-    log!("--- Kinema {} started ---", env!("CARGO_PKG_VERSION"));
+    log!("--- Skrin {} started ---", env!("CARGO_PKG_VERSION"));
     log!("capabilities: {:?}", capabilities::current());
     webkit_drawing::say_choice();
     if let Err(e) = util::keep_private(&dir) {
@@ -150,7 +150,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
     }
 
     // Before anything opens the library: a restore asked for in Settings is
-    // carried out here, as Kinema starts again. Its outcome is said in a dialog,
+    // carried out here, as Skrin starts again. Its outcome is said in a dialog,
     // since the webview does not exist yet and a restore nobody hears about is
     // one nobody can tell from one that did nothing.
     if selftest::plan_path().is_none() {
@@ -159,7 +159,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
                 log!("backup: restored the copy made at {}", done.made_at);
                 startup_dialog::tell(
                     app,
-                    "Kinema",
+                    "Skrin",
                     "Your library was put back from the safety copy you chose.",
                     startup_dialog::Kind::Info,
                 );
@@ -211,7 +211,7 @@ fn open_library(app: &tauri::AppHandle) -> Result<(), String> {
     // for why it exists at all.
     let scanner = db::open_secondary(&path).map_err(|e| {
         format!(
-            "Kinema opened its library but could not open a second connection \
+            "Skrin opened its library but could not open a second connection \
              for scanning.\n\n{}\n\n{e}",
             path.display()
         )
@@ -244,11 +244,11 @@ fn open_from_a_safety_copy(
 
     let put_back = startup_dialog::ask(
         app,
-        "Kinema could not open its library",
+        "Skrin could not open its library",
         &said,
         startup_dialog::Kind::Warning,
         "Put it back",
-        Some("Close Kinema"),
+        Some("Close Skrin"),
     );
     if !put_back {
         log!("library: the safety copy was declined; closing");
@@ -258,7 +258,7 @@ fn open_from_a_safety_copy(
     log!("library: put back {}", copy.name);
     let conn = db::open(path).map_err(|e| {
         format!(
-            "Kinema put back the safety copy from {}, and could not open that either. The \
+            "Skrin put back the safety copy from {}, and could not open that either. The \
              library as it was is kept among the safety copies.\n\n{}\n\n{e}",
             backup::date_of(&copy),
             path.display()
@@ -266,7 +266,7 @@ fn open_from_a_safety_copy(
     })?;
     startup_dialog::tell(
         app,
-        "Kinema",
+        "Skrin",
         &format!("Your library was put back from the safety copy from {}.", backup::date_of(&copy)),
         startup_dialog::Kind::Info,
     );
@@ -290,22 +290,22 @@ pub fn run() {
 
     #[cfg_attr(mobile, allow(unused_mut))]
     let mut builder = tauri::Builder::default();
-    // One Kinema at a time. Two would each switch the display and take the
+    // One Skrin at a time. Two would each switch the display and take the
     // sound device, and the second player would either fail or fight the
     // first for the screen. Starting it again brings the running one forward.
     //
     // Not in a development build, or it would refuse to start beside the
     // release build in use, and not under a self-test, which works on its own
-    // copy of the library and must be able to run while Kinema is open. Both
+    // copy of the library and must be able to run while Skrin is open. Both
     // are decided here rather than in the plugin because it registers itself
     // for the whole process. It has to come before the other plugins.
     //
-    // A desktop matter: Android keeps one Kinema by itself (the activity's
+    // A desktop matter: Android keeps one Skrin by itself (the activity's
     // `singleTask`), and the plugin has no mobile side.
     #[cfg(desktop)]
     if !cfg!(debug_assertions) && selftest::plan_path().is_none() {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
-            log!("a second Kinema was started; bringing this one forward");
+            log!("a second Skrin was started; bringing this one forward");
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.unminimize();
                 let _ = window.show();
@@ -313,13 +313,13 @@ pub fn run() {
             }
             // Started for a video (opened.rs): this one plays it instead.
             // Looked at off the window's thread: this runs on it, and the
-            // second Kinema waits until it returns (A5-02); a file on a share
+            // second Skrin waits until it returns (A5-02); a file on a share
             // that has gone silent would hold both (A5-01).
             let app = app.clone();
             let args: Vec<std::ffi::OsString> = args.into_iter().map(Into::into).collect();
             std::thread::spawn(move || {
                 if let Some(path) = opened::from_args(args, std::path::Path::new(&cwd)) {
-                    log!("opened: {} passed on by a second Kinema", path.display());
+                    log!("opened: {} passed on by a second Skrin", path.display());
                     use tauri::Emitter;
                     let _ = app.emit(
                         opened::EVENT,
@@ -355,7 +355,7 @@ pub fn run() {
                 startup_dialog::hold_page(app.handle());
                 startup_dialog::tell(
                     app.handle(),
-                    "Kinema could not start",
+                    "Skrin could not start",
                     &message,
                     startup_dialog::Kind::Error,
                 );
@@ -364,7 +364,7 @@ pub fn run() {
                 // only add an invisible second failure.
                 std::process::exit(1);
             }
-            // A video Kinema was started for (opened.rs), for the page to
+            // A video Skrin was started for (opened.rs), for the page to
             // take. Read before the page asks, which is after this returns.
             let cwd = std::env::current_dir().unwrap_or_default();
             let at_launch = opened::from_args(std::env::args_os(), &cwd);
@@ -395,11 +395,11 @@ pub fn run() {
                     log!("window: no window to start again after a start-up dialog");
                 });
             }
-            // An offer to Windows naming a folder Kinema has moved from.
+            // An offer to Windows naming a folder Skrin has moved from.
             default_player::refresh();
 
             // Network sign-ins kept from before, unlocked for the shares
-            // Kinema opens itself.
+            // Skrin opens itself.
             share_logins::load(app.handle());
 
             // What this machine is connected to: checked, saved beside what

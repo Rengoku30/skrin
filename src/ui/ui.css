@@ -94,9 +94,9 @@ html {
   font-size: min(1.2083vw, 2.1481vh);
 }
 
-/* Kinema's own focus engine gives the control holding the ring the DOM focus
+/* Skrin's own focus engine gives the control holding the ring the DOM focus
    too (focusStore.ts), for a screen reader and the web's keys. The ring is
-   Kinema's own (`.focused`); the browser's outline beside it would be a
+   Skrin's own (`.focused`); the browser's outline beside it would be a
    second one. Zero specificity, so every `.focused` outline still wins. */
 :where([data-nav-key]):focus {
   outline: none;
@@ -251,7 +251,7 @@ button {
   vertical-align: 0.0625rem;
 }
 
-/* A newer Kinema is out: less urgent than a count, so a dot. */
+/* A newer Skrin is out: less urgent than a count, so a dot. */
 .nav-dot {
   display: inline-block;
   width: 0.4375rem;
@@ -763,7 +763,7 @@ button {
 }
 
 /* A poster drawn for a title with no picture (DrawnPoster.tsx): its own
-   colour, the name and year in Kinema's lettering, a thin inner frame. */
+   colour, the name and year in Skrin's lettering, a thin inner frame. */
 .drawn-poster {
   display: flex;
   flex-direction: column;
@@ -2774,7 +2774,7 @@ button.cast-member {
 
 .tmdb-logo {
   display: block;
-  /* About one line of text tall (the mark is 14:1), and well below any Kinema
+  /* About one line of text tall (the mark is 14:1), and well below any Skrin
      mark: an attribution, not a badge. */
   width: 12rem;
   height: auto;
@@ -3860,7 +3860,7 @@ kbd {
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);
 }
 
-/* A YouTube trailer in Kinema (TrailerOverlay.tsx): the frame at 16:9 as
+/* A YouTube trailer in Skrin (TrailerOverlay.tsx): the frame at 16:9 as
    large as the window allows, the keys and two buttons under it. */
 .trailer-backdrop {
   z-index: 61;
@@ -3977,7 +3977,7 @@ kbd {
   opacity: 0.5;
 }
 
-/* ---- leaving Kinema (TV mode) ---------------------------------------------- */
+/* ---- leaving Skrin (TV mode) ---------------------------------------------- */
 /* Over Home, which paints its own background, so an opaque-ish backdrop is
    fine; it never appears over the player. */
 .leave-backdrop {
@@ -4129,7 +4129,7 @@ kbd {
   font-size: max(var(--fs-floor), 0.8125rem);
 }
 
-/* ---- Kinema's own folder browser (FolderBrowser.tsx) ------------------------ */
+/* ---- Skrin's own folder browser (FolderBrowser.tsx) ------------------------ */
 /* Inside the Leave dialog's backdrop: a panel wide enough for long folder
    names, scrolling as a whole when a TV's height runs out. Not the list
    alone: squeezed between the actions and the notes below it, it shrank to

@@ -1,5 +1,5 @@
 /**
- * Settings → Your equipment: what Kinema can see of the screens and audio
+ * Settings → Your equipment: what Skrin can see of the screens and audio
  * outputs this PC is connected to, and what it remembers of ones it has seen
  * before.
  *
@@ -94,9 +94,9 @@ export default function EquipmentSection({ system }: { system: string }) {
     <section className="settings-section">
       <h2>Your equipment</h2>
       <p className="settings-intro">
-        What {system} reports about the screens and sound devices connected to this PC. Kinema
+        What {system} reports about the screens and sound devices connected to this PC. Skrin
         checks every time it starts and bases its playback choices on this. Nothing here is a
-        setting: if something looks wrong, the cause is in {system} or the cables, not in Kinema.
+        setting: if something looks wrong, the cause is in {system} or the cables, not in Skrin.
       </p>
       <div className="settings-toggle-row">
         <FocusButton className="btn-secondary" onSelect={() => void check()}>
@@ -107,7 +107,7 @@ export default function EquipmentSection({ system }: { system: string }) {
             ? `Last checked ${new Date(equipment.checked_at * 1000).toLocaleTimeString()}. `
             : ''}
           Only needed if a TV or receiver was switched on, or a {system} sound or display setting
-          was changed, after Kinema started.
+          was changed, after Skrin started.
         </span>
       </div>
       {error && <p className="equipment-problem">Could not check: {error}</p>}
@@ -123,7 +123,7 @@ export default function EquipmentSection({ system }: { system: string }) {
                 {d.new && <span className="equipment-new">new</span>}
                 <span className="muted">
                   {d.connection} ·{' '}
-                  {/* A mode of 0×0 is one the desktop did not report (a Linux desktop Kinema cannot ask). */}
+                  {/* A mode of 0×0 is one the desktop did not report (a Linux desktop Skrin cannot ask). */}
                   {d.width > 0 ? `${d.width}×${d.height} at ${formatRate(refreshRate(d))} Hz · ` : ''}
                   {hdrLabel(d, system)}
                 </span>

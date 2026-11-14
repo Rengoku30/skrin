@@ -203,9 +203,9 @@
       "On": { "U": "✓Auto", "D": "Off", "L": "✓Off", "R": "·" },
       "Off": { "U": "✓Off", "D": "✓Match the sound", "L": "Playback", "R": "✓On" },
       "✓On": { "U": "✓Off", "D": "✓Match the sound", "L": "Off", "R": "·" },
-      "✓Match the sound": { "U": "Off", "D": "Offer Kinema as a video player", "L": "Playback", "R": "Match the screen" },
-      "Match the screen": { "U": "Off", "D": "Offer Kinema as a video player", "L": "✓Match the sound", "R": "·" },
-      "Offer Kinema as a video player": { "U": "✓Match the sound", "D": "·", "L": "Playback", "R": "·" }
+      "✓Match the sound": { "U": "Off", "D": "Offer Skrin as a video player", "L": "Playback", "R": "Match the screen" },
+      "Match the screen": { "U": "Off", "D": "Offer Skrin as a video player", "L": "✓Match the sound", "R": "·" },
+      "Offer Skrin as a video player": { "U": "✓Match the sound", "D": "·", "L": "Playback", "R": "·" }
     },
     "settings-picture": {
       "Search settings": { "U": "Settings", "D": "Library #2", "L": "·", "R": "✓Off #1" },
@@ -278,24 +278,24 @@
       "Used with the client ID above": { "U": "From app.trakt.tv/settings/apps", "D": "·", "L": "Advanced", "R": "·" }
     },
     "settings-review": {
-      "Fixture Movie (1999) · 1 file · movieKinema could ": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "·" },
-      "Sample Series · 2 files · seriesKinema could not i": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "How Kinema reads file names ↗", "L": "Library #2", "R": "·" },
-      "How Kinema reads file names ↗": { "U": "Sample Series · 2 files · seriesKinema could not i", "D": "Run setup again", "L": "Library #2", "R": "·" }
+      "Fixture Movie (1999) · 1 file · movieSkrin could n": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "·" },
+      "Sample Series · 2 files · seriesSkrin could not id": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "How Skrin reads file names ↗", "L": "Library #2", "R": "·" },
+      "How Skrin reads file names ↗": { "U": "Sample Series · 2 files · seriesSkrin could not id", "D": "Run setup again", "L": "Library #2", "R": "·" }
     },
     "settings-review-item": {
-      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
-      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Movie", "R": "Ignore these" },
-      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search #2", "R": "·" },
-      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Library #2", "R": "Movie" },
-      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Year", "R": "·" },
-      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "Year" },
-      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Name", "R": "Add without a match" }
+      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
+      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Movie", "R": "Ignore these" },
+      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search #2", "R": "·" },
+      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Library #2", "R": "Movie" },
+      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Year", "R": "·" },
+      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "Year" },
+      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Name", "R": "Add without a match" }
     },
     "leave": {
-      "Close Kinema": { "U": "Cancel", "D": "Put the PC to sleep", "L": "·", "R": "·" },
-      "Put the PC to sleep": { "U": "Close Kinema", "D": "Shut down the PC", "L": "·", "R": "·" },
+      "Close Skrin": { "U": "Cancel", "D": "Put the PC to sleep", "L": "·", "R": "·" },
+      "Put the PC to sleep": { "U": "Close Skrin", "D": "Shut down the PC", "L": "·", "R": "·" },
       "Shut down the PC": { "U": "Put the PC to sleep", "D": "Cancel", "L": "·", "R": "·" },
-      "Cancel": { "U": "Shut down the PC", "D": "Close Kinema", "L": "·", "R": "·" }
+      "Cancel": { "U": "Shut down the PC", "D": "Close Skrin", "L": "·", "R": "·" }
     },
     "player": {
       "Back": { "U": "·", "D": "Position", "L": "·", "R": "·" },
@@ -733,9 +733,9 @@
       "On": { "U": "✓Auto", "D": "Off", "L": "✓Off", "R": "·" },
       "Off": { "U": "✓Off", "D": "✓Match the sound", "L": "Playback", "R": "✓On" },
       "✓On": { "U": "✓Off", "D": "✓Match the sound", "L": "Off", "R": "·" },
-      "✓Match the sound": { "U": "Off", "D": "Add Kinema to the app menu", "L": "Playback", "R": "Match the screen" },
-      "Match the screen": { "U": "Off", "D": "Add Kinema to the app menu", "L": "✓Match the sound", "R": "·" },
-      "Add Kinema to the app menu": { "U": "✓Match the sound", "D": "·", "L": "Playback", "R": "·" }
+      "✓Match the sound": { "U": "Off", "D": "Add Skrin to the app menu", "L": "Playback", "R": "Match the screen" },
+      "Match the screen": { "U": "Off", "D": "Add Skrin to the app menu", "L": "✓Match the sound", "R": "·" },
+      "Add Skrin to the app menu": { "U": "✓Match the sound", "D": "·", "L": "Playback", "R": "·" }
     },
     "settings-picture": {
       "Search settings": { "U": "Settings", "D": "Library #2", "L": "·", "R": "✓Off #1" },
@@ -799,24 +799,24 @@
       "Used with the client ID above": { "U": "From app.trakt.tv/settings/apps", "D": "·", "L": "Advanced", "R": "·" }
     },
     "settings-review": {
-      "Fixture Movie (1999) · 1 file · movieKinema could ": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "·" },
-      "Sample Series · 2 files · seriesKinema could not i": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "How Kinema reads file names ↗", "L": "Library #2", "R": "·" },
-      "How Kinema reads file names ↗": { "U": "Sample Series · 2 files · seriesKinema could not i", "D": "Run setup again", "L": "Library #2", "R": "·" }
+      "Fixture Movie (1999) · 1 file · movieSkrin could n": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "·" },
+      "Sample Series · 2 files · seriesSkrin could not id": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "How Skrin reads file names ↗", "L": "Library #2", "R": "·" },
+      "How Skrin reads file names ↗": { "U": "Sample Series · 2 files · seriesSkrin could not id", "D": "Run setup again", "L": "Library #2", "R": "·" }
     },
     "settings-review-item": {
-      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
-      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Movie", "R": "Ignore these" },
-      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search #2", "R": "·" },
-      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Library #2", "R": "Movie" },
-      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Year", "R": "·" },
-      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "Year" },
-      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Name", "R": "Add without a match" }
+      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
+      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Movie", "R": "Ignore these" },
+      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search #2", "R": "·" },
+      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Library #2", "R": "Movie" },
+      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Year", "R": "·" },
+      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "Year" },
+      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Name", "R": "Add without a match" }
     },
     "leave": {
-      "Close Kinema": { "U": "Cancel", "D": "Put the PC to sleep", "L": "·", "R": "·" },
-      "Put the PC to sleep": { "U": "Close Kinema", "D": "Shut down the PC", "L": "·", "R": "·" },
+      "Close Skrin": { "U": "Cancel", "D": "Put the PC to sleep", "L": "·", "R": "·" },
+      "Put the PC to sleep": { "U": "Close Skrin", "D": "Shut down the PC", "L": "·", "R": "·" },
       "Shut down the PC": { "U": "Put the PC to sleep", "D": "Cancel", "L": "·", "R": "·" },
-      "Cancel": { "U": "Shut down the PC", "D": "Close Kinema", "L": "·", "R": "·" }
+      "Cancel": { "U": "Shut down the PC", "D": "Close Skrin", "L": "·", "R": "·" }
     },
     "player": {
       "Back": { "U": "·", "D": "Position", "L": "·", "R": "·" },
@@ -1279,22 +1279,22 @@
       "Used with the client ID above": { "U": "From app.trakt.tv/settings/apps", "D": "·", "L": "Advanced", "R": "·" }
     },
     "settings-review": {
-      "Fixture Movie (1999) · 1 file · movieKinema could ": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "·" },
-      "Sample Series · 2 files · seriesKinema could not i": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "How Kinema reads file names ↗", "L": "Library #2", "R": "·" },
-      "How Kinema reads file names ↗": { "U": "Sample Series · 2 files · seriesKinema could not i", "D": "Run setup again", "L": "Library #2", "R": "·" }
+      "Fixture Movie (1999) · 1 file · movieSkrin could n": { "U": "Review 3 items", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "·" },
+      "Sample Series · 2 files · seriesSkrin could not id": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "How Skrin reads file names ↗", "L": "Library #2", "R": "·" },
+      "How Skrin reads file names ↗": { "U": "Sample Series · 2 files · seriesSkrin could not id", "D": "Run setup again", "L": "Library #2", "R": "·" }
     },
     "settings-review-item": {
-      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
-      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Movie", "R": "Ignore these" },
-      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Search #2", "R": "·" },
-      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieKinema could ", "D": "Name", "L": "Library #2", "R": "Movie" },
-      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Year", "R": "·" },
-      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Library #2", "R": "Year" },
-      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesKinema could not i", "L": "Name", "R": "Add without a match" }
+      "Movie": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search for the right title…", "R": "Search #2" },
+      "Search #2": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Movie", "R": "Ignore these" },
+      "Ignore these": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Search #2", "R": "·" },
+      "Search for the right title…": { "U": "Fixture Movie (1999) · 1 file · movieSkrin could n", "D": "Name", "L": "Library #2", "R": "Movie" },
+      "Add without a match": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Year", "R": "·" },
+      "Name": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Library #2", "R": "Year" },
+      "Year": { "U": "Search for the right title…", "D": "Sample Series · 2 files · seriesSkrin could not id", "L": "Name", "R": "Add without a match" }
     },
     "leave": {
-      "Close Kinema": { "U": "Cancel", "D": "Cancel", "L": "·", "R": "·" },
-      "Cancel": { "U": "Close Kinema", "D": "Close Kinema", "L": "·", "R": "·" }
+      "Close Skrin": { "U": "Cancel", "D": "Cancel", "L": "·", "R": "·" },
+      "Cancel": { "U": "Close Skrin", "D": "Close Skrin", "L": "·", "R": "·" }
     },
     "player": {
       "Back": { "U": "·", "D": "Position", "L": "·", "R": "·" },

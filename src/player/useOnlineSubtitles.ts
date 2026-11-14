@@ -1,6 +1,6 @@
 /**
  * "Find subtitles online" in the track panel (onlineSubtitles.ts): whether
- * this copy of Kinema can search, in which language, the search itself and
+ * this copy of Skrin can search, in which language, the search itself and
  * "Choose another" — and what the panel shows for it.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -123,7 +123,7 @@ export function useOnlineSubtitles({
   const onlineLanguage = onlineLanguages[online.langIndex % Math.max(1, onlineLanguages.length)];
 
   // Whether this copy can search at all: asked when the panel opens, since a
-  // key can be entered in Settings while Kinema runs.
+  // key can be entered in Settings while Skrin runs.
   useEffect(() => {
     if (!showTracks) return;
     let live = true;

@@ -146,7 +146,7 @@ describe('parseRenderPasses', () => {
 
 describe('describeDrawing', () => {
   const base = { since: null, value: null, stopped_now: false };
-  it('says nothing where Kinema does not choose', () => {
+  it('says nothing where Skrin does not choose', () => {
     expect(describeDrawing(null)).toBeNull();
     expect(describeDrawing({ ...base, mode: 'none' })).toBeNull();
   });

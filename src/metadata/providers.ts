@@ -481,12 +481,12 @@ export async function readJson<T>(response: Response, service: string): Promise<
     data = await response.json();
   } catch (e) {
     if (e instanceof RequestTimedOut) throw e;
-    const plain = new Error(`${service} sent an answer Kinema could not read`);
+    const plain = new Error(`${service} sent an answer Skrin could not read`);
     (plain as Error & { cause?: unknown }).cause = e;
     throw plain;
   }
   if (data === null || typeof data !== 'object') {
-    throw new Error(`${service} sent an answer Kinema could not read`);
+    throw new Error(`${service} sent an answer Skrin could not read`);
   }
   return data as T;
 }
@@ -498,7 +498,7 @@ export async function tvmazeSearch(title: string): Promise<Candidate[]> {
     if (!response.ok) throw new Error(`TVmaze search failed: HTTP ${response.status}`);
 
     const results = await readJson<Array<{ show: TvmazeShow }>>(response, 'TVmaze');
-    if (!Array.isArray(results)) throw new Error('TVmaze sent an answer Kinema could not read');
+    if (!Array.isArray(results)) throw new Error('TVmaze sent an answer Skrin could not read');
     return results.slice(0, 8).map(({ show }) => ({
       providerId: String(show.id),
       title: show.name,
@@ -1115,7 +1115,7 @@ export async function omdbTomatometer(key: string, imdbId: string): Promise<numb
   // An answer that is not an answer is an error, not "no score": a score
   // already stored must not be written over with nothing (A6-07).
   if (response.ok && !readable) {
-    throw new Error('OMDb sent an answer Kinema could not read');
+    throw new Error('OMDb sent an answer Skrin could not read');
   }
 
   if (!response.ok || data.Response === 'False') {

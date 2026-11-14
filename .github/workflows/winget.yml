@@ -39,7 +39,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ inputs.version }}
         run: |
-          # kinema-windows-x64-setup.exe; up to 0.12.0 the name carried the version.
+          # skrin-windows-x64-setup.exe; up to 0.12.0 the name carried the version.
           gh release download "v$env:VERSION" --pattern "kinema-*windows-x64-setup.exe*" --dir release
           $setup = @(Get-ChildItem release\*-setup.exe)[0].FullName
           $hash = (Get-FileHash $setup -Algorithm SHA256).Hash.ToLower()
@@ -75,5 +75,5 @@ jobs:
           Invoke-WebRequest "https://github.com/microsoft/winget-create/releases/download/$wcTag/wingetcreate.exe" -OutFile wingetcreate.exe
           $got = (Get-FileHash wingetcreate.exe -Algorithm SHA256).Hash.ToLower()
           if ($got -ne $wcSha) { throw "wingetcreate.exe SHA-256 mismatch: expected $wcSha, got $got." }
-          .\wingetcreate.exe submit --prtitle "Basswaves.Kinema version $env:VERSION" --token $env:WINGET_TOKEN winget
+          .\wingetcreate.exe submit --prtitle "Basswaves.Skrin version $env:VERSION" --token $env:WINGET_TOKEN winget
           if ($LASTEXITCODE -ne 0) { throw "wingetcreate submit failed ($LASTEXITCODE)." }

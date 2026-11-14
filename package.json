@@ -1,15 +1,15 @@
 {
-  "name": "kinema",
+  "name": "skrin",
   "version": "0.16.0",
   "description": "A local, serverless media library for movies and TV shows. Tauri 2 + React 19 + libmpv.",
   "license": "MIT",
   "author": "Basswaves",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Basswaves/kinema.git"
+    "url": "https://github.com/basswaves/skrin.git"
   },
-  "homepage": "https://github.com/Basswaves/kinema",
-  "bugs": "https://github.com/Basswaves/kinema/issues",
+  "homepage": "https://github.com/basswaves/skrin",
+  "bugs": "https://github.com/basswaves/skrin/issues",
   "engines": {
     "node": ">=20"
   },

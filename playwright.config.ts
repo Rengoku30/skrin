@@ -1,7 +1,7 @@
 /**
  * The interface, driven by keyboard only, in two browser engines.
  *
- * Kinema's window is Chromium on Windows (WebView2) and Android, and WebKit on
+ * Skrin's window is Chromium on Windows (WebView2) and Android, and WebKit on
  * Linux (WebKitGTK). A difference between them in CSS or JavaScript shows up
  * here, against `dev:mock`'s fake library and fake mpv, before anyone runs
  * Linux. `npm run test:ui`; see CONTRIBUTING, "Checking Linux from Windows".

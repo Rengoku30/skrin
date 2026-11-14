@@ -1,14 +1,14 @@
 {
   "title": "What leaves your computer",
-  "intro": "Kinema keeps your library, your settings and what you have watched on this device. It has no account and no server of its own, and it sends no usage statistics. These are every service it can talk to, what it sends, when, and what stops it.",
+  "intro": "Skrin keeps your library, your settings and what you have watched on this device. It has no account and no server of its own, and it sends no usage statistics. These are every service it can talk to, what it sends, when, and what stops it.",
   "services": [
     {
       "id": "tmdb",
       "name": "TMDB (The Movie Database)",
       "hosts": ["api.themoviedb.org", "api.tmdb.org", "image.tmdb.org"],
-      "sends": "The title and year read from a file or folder name (or an IMDb number written in one, or in an NFO beside the file), the TMDB number of a close candidate when asking for its other names, then the TMDB number of each match, and of an actor whose page you open or a title whose posters you list, with Kinema's key or yours. Pictures are asked for by their address.",
+      "sends": "The title and year read from a file or folder name (or an IMDb number written in one, or in an NFO beside the file), the TMDB number of a close candidate when asking for its other names, then the TMDB number of each match, and of an actor whose page you open or a title whose posters you list, with Skrin's key or yours. Pictures are asked for by their address.",
       "when": "When a scan finds a film or show that has not been matched yet, when a title's details are over six months old (TMDB's terms) or a running show's next episode has aired, when you open an actor's page (once a month at most) or a title's poster list, and when a poster or backdrop is first shown.",
-      "stop": "No switch: TMDB is how Kinema knows what your films and shows are. A folder you remove is no longer looked up."
+      "stop": "No switch: TMDB is how Skrin knows what your films and shows are. A folder you remove is no longer looked up."
     },
     {
       "id": "tvmaze",
@@ -40,7 +40,7 @@
       "id": "imdb",
       "name": "IMDb ratings file",
       "hosts": ["datasets.imdbws.com"],
-      "sends": "Nothing about your library: Kinema downloads the ratings file IMDb publishes for everyone and keeps only the rows for your titles.",
+      "sends": "Nothing about your library: Skrin downloads the ratings file IMDb publishes for everyone and keeps only the rows for your titles.",
       "when": "The first time, then when the file is over 30 days old, or a week after a new title joined the library.",
       "stop": "No switch: nothing of yours is sent."
     },
@@ -107,7 +107,7 @@
       "id": "winget",
       "name": "winget (installing ffmpeg)",
       "hosts": [],
-      "sends": "Kinema sends nothing itself: it asks winget, Windows' own installer, to fetch ffmpeg from its usual sources.",
+      "sends": "Skrin sends nothing itself: it asks winget, Windows' own installer, to fetch ffmpeg from its usual sources.",
       "when": "Only when you press Install ffmpeg.",
       "stop": "Do not press it.",
       "only": "installs_ffmpeg"
@@ -116,7 +116,7 @@
       "id": "youtube",
       "name": "YouTube (trailers)",
       "hosts": ["www.youtube-nocookie.com"],
-      "sends": "The trailer's YouTube number, and Kinema's own page address (http://tauri.localhost) as the page it plays for, which YouTube requires. YouTube's player then runs as on any website: once a trailer plays, YouTube stores data on this device and may show an ad. Kinema does not block ads. On Android the YouTube app gets the number instead.",
+      "sends": "The trailer's YouTube number, and Skrin's own page address (http://tauri.localhost) as the page it plays for, which YouTube requires. YouTube's player then runs as on any website: once a trailer plays, YouTube stores data on this device and may show an ad. Skrin does not block ads. On Android the YouTube app gets the number instead.",
       "when": "Only when you press Trailer on a title with no trailer file beside it. A trailer file always plays first, and nothing goes to YouTube for it.",
       "stop": "Do not press Trailer, or put the trailer file beside the film. Where YouTube refuses, the trailer opens in your browser instead."
     },
@@ -124,15 +124,15 @@
       "id": "github",
       "name": "GitHub (new versions)",
       "hosts": ["api.github.com"],
-      "sends": "An ordinary request for the number of Kinema's latest release. Nothing about you or your library.",
-      "when": "Once each time Kinema starts.",
+      "sends": "An ordinary request for the number of Skrin's latest release. Nothing about you or your library.",
+      "when": "Once each time Skrin starts.",
       "stop": "Look for new versions, in Settings, Advanced.",
       "section": "advanced",
       "state": "updates"
     }
   ],
   "links": {
-    "intro": "Some buttons open a web page in your browser. Kinema itself sends nothing to these; your browser does, as with any link.",
+    "intro": "Some buttons open a web page in your browser. Skrin itself sends nothing to these; your browser does, as with any link.",
     "hosts": [
       { "host": "www.themoviedb.org", "for": "getting a free TMDB key" },
       { "host": "www.omdbapi.com", "for": "getting a free OMDb key" },
@@ -140,11 +140,11 @@
       { "host": "trakt.tv", "for": "Trakt's sign-in page" },
       { "host": "auth.trakt.tv", "for": "Trakt's sign-in page" },
       { "host": "app.trakt.tv", "for": "Trakt's developer page" },
-      { "host": "github.com", "for": "Kinema's release page, Skiptro's page, and reporting a bug" },
-      { "host": "basswaves.github.io", "for": "Kinema's website and its guides, such as how file names are read" },
+      { "host": "github.com", "for": "Skrin's release page, Skiptro's page, and reporting a bug" },
+      { "host": "skrin.org", "for": "Skrin's website and its guides, such as how file names are read" },
       { "host": "ffmpeg.org", "for": "downloading ffmpeg by hand" },
       { "host": "www.youtube.com", "for": "trailers" }
     ]
   },
-  "local": "Folders on your own network are read where they are, and the player streams from Kinema on this device only. Neither leaves your home network."
+  "local": "Folders on your own network are read where they are, and the player streams from Skrin on this device only. Neither leaves your home network."
 }

@@ -16,7 +16,7 @@
 # (scripts/build-mpv-wrapper.sh) beside the exe or in src-tauri/lib/.
 set -u
 root="$(cd "$(dirname "$0")/.." && pwd)"
-exe="${1:-${KINEMA_EXE:-$root/src-tauri/target/release/kinema}}"
+exe="${1:-${KINEMA_EXE:-$root/src-tauri/target/release/skrin}}"
 [ -x "$exe" ] || { echo "FAIL no exe at $exe"; exit 1; }
 # selftest.sh looks for the wrapper beside the exe.
 [ -e "$(dirname "$exe")/libmpv-wrapper.so" ] || cp "$root/src-tauri/lib/libmpv-wrapper.so" "$(dirname "$exe")/" 2>/dev/null \

@@ -436,7 +436,7 @@ refused) holds every call to it until Windows' SMB client gives up — about
 three minutes. Four plain `fn` commands looked at the film's file
 (`disc_source` on every open, the loose-video saves every 5 s, `save_progress`
 at the end, `playable_path` on a drop) and the window sat "Not responding" for
-up to 3 min 5 s; a second Kinema started meanwhile hung too, invisibly, as the
+up to 3 min 5 s; a second Skrin started meanwhile hung too, invisibly, as the
 single-instance hand-over waits for the same thread. `off_main` alone is not
 enough either: the look never comes back, so each call would leave one more
 stuck thread. **Do:** look at a film's file through `files::within(path, wait,
@@ -454,7 +454,7 @@ too: it hands the look to a thread of its own.
 The whole interface runs in one process of the web engine. On a computer short
 of memory the kernel kills it (seen on 3.7 GB with 4000×6000 posters), and it can
 crash. Nothing in the page can notice, being gone; Tauri does not hear of it.
-Kinema went on running with the last picture on its window, as if frozen, for
+Skrin went on running with the last picture on its window, as if frozen, for
 as long as anyone waited. **Do:** listen to each engine (`page_life.rs`):
 WebKitGTK's `web-process-terminated`, WebView2's `ProcessFailed`, Android's
 `onRenderProcessGone`. The kernel's kill reads as `Crashed`, not as a memory
@@ -465,10 +465,10 @@ reason, so words to the person cannot claim the cause.
   instance is harmless in plugin 0.3.2 (it returns), but loading the mouse
   script again would double every click: ask `mpv_started` first. The new page
   reads what mpv has open and reopens it there (`pageRecovery.ts`).
-- WebView2's *browser* process ending cannot be reloaded from: only a new Kinema. `app.restart()` on the main thread skips the exit event that frees the single-instance lock, so the new one found it held and left, and Kinema simply closed. It showed only in a real release build, not under a self-test (no lock there): free the lock first (`tauri_plugin_single_instance::destroy`).
+- WebView2's *browser* process ending cannot be reloaded from: only a new Skrin. `app.restart()` on the main thread skips the exit event that frees the single-instance lock, so the new one found it held and left, and Skrin simply closed. It showed only in a real release build, not under a self-test (no lock there): free the lock first (`tauri_plugin_single_instance::destroy`).
 - Android: not answering `onRenderProcessGone` has the system kill the whole
   app, and answering means that WebView may never be used again. Tauri cannot
-  replace it, so Kinema starts anew (`PageGone.kt`). `RustWebViewClient` is
+  replace it, so Skrin starts anew (`PageGone.kt`). `RustWebViewClient` is
   written out by wry's build and final: the one way in is wry's
   `WRY_RUSTWEBVIEWCLIENT_CLASS_EXTENSION`, in `.cargo/config.toml` **at the
   project root**. In `src-tauri/.cargo/` it was silently not applied: no error,
@@ -494,7 +494,7 @@ serialises access to each connection, and SQLite does the rest.
 `app.dialog().message(…).blocking_show()` inside `setup` runs on the main thread. On
 Windows and Android the dialog has a loop of its own and works. On Linux the plugin's
 dialog is drawn by the GTK loop that the main thread runs, and the main thread is
-blocked waiting for it: no window, no error, Kinema hangs with nothing on screen
+blocked waiting for it: no window, no error, Skrin hangs with nothing on screen
 (the main thread sits in a futex wait). Every start-up message had this since Linux
 support began. **Do:** `startup_dialog::tell` / `ask`, which run a GTK dialog
 directly on Linux. **And when testing it in WSL:** set `GDK_BACKEND=x11` and a
@@ -508,7 +508,7 @@ The GTK loop a Linux dialog turns also runs the webview: the page starts while t
 dialog waits, before `setup` has managed the library, and every call it makes fails
 ("state not managed for field `db`"). After "Put it back" the window showed those raw
 errors over Welcome, as if the library were gone. On Android the page stayed black
-until Kinema was started again. Windows waits and starts well. Nothing in the tests
+until Skrin was started again. Windows waits and starts well. Nothing in the tests
 showed it: the dialogs were checked, not the page behind them (seen on the Linux test
 PC and the emulator before 0.15.2). **Do:** `setup` reloads the page once a
 start-up dialog was shown (`startup_dialog::any_shown`), off Windows.
@@ -881,9 +881,9 @@ clicking reaches anything, so the UI tests perfectly on a desk and is unusable
 from a sofa. **Test D-pad changes with the mouse physically untouched.**
 
 Entries marked **(before round 7)** describe the spatial library
-(`norigin-spatial-navigation`) that Kinema moved by until round 7 — removed in
+(`norigin-spatial-navigation`) that Skrin moved by until round 7 — removed in
 F4, 2026-10-31. They are kept as history: what it measured, when it updated
-itself later, and the timers that corrected it are all gone, and Kinema's own
+itself later, and the timers that corrected it are all gone, and Skrin's own
 engine (focusStore.ts, focusModel.ts) gives each one's right answer by
 construction (focusModel.test.ts has the cases). The unmarked entries still
 apply.
@@ -1493,7 +1493,7 @@ wrap on every engine.
 
 ### The spatial library calls `preventDefault` on every key, even while paused (before round 7)
 
-Kinema's own focus engine (focusStore.ts, round 7) first ignored a key whose
+Skrin's own focus engine (focusStore.ts, round 7) first ignored a key whose
 `defaultPrevented` was set, so that a control keeping a key to itself could
 claim it. Every arrow on Home then did nothing, with no error: the spatial
 library's window listener, registered first, calls `preventDefault` (and
@@ -1517,7 +1517,7 @@ the keypress.
 
 ### A scroll animated per frame stretches on a starved page
 
-Kinema's scroll spring (focusScroll.ts) capped each frame's step at 50 ms.
+Skrin's scroll spring (focusScroll.ts) capped each frame's step at 50 ms.
 A busy CI machine — and a weak box — gave WebKit a frame every few hundred
 milliseconds, so every 220 ms scroll took seconds, the flows waiting for the
 page to settle ran out of their minute, and it looked like a flake in the
@@ -1701,7 +1701,7 @@ nothing. Surface failures; the `catch` that hides them costs more than it saves.
 ### The spatial library marks every control it ever focused
 
 norigin sets `data-focused="true"` on a control when it focuses it, and takes
-it off again only when `shouldFocusDOMNode` is on — which Kinema leaves off.
+it off again only when `shouldFocusDOMNode` is on — which Skrin leaves off.
 So the attribute means "was focused at some point while it was mounted", not
 "is focused". **Do:** read the `focused` class that FocusButton sets, never
 `[data-focused]`, in tests and styles alike.
@@ -1779,7 +1779,7 @@ WebKit on Linux. Every release from 0.13.0 to 0.14.0 approved that "WebKit-only
 tie" by hand. **Do:** take WebKit's answers from Linux (CI, WSL, a cloud
 session), Edge's from Windows; `npm run verify` and the nightly map already
 run them that way. A difference seen only in Windows WebKit is not a bug in
-Kinema.
+Skrin.
 
 ### The dev server can go on serving a stylesheet from before an edit
 
@@ -1887,7 +1887,7 @@ the presses. Do not expect a speed-up from here.
 
 ### A self-test's screenshots are of whatever window is in front
 
-`selftest.ps1` photographs the primary screen, not Kinema's window. Started
+`selftest.ps1` photographs the primary screen, not Skrin's window. Started
 from a script while someone is using the PC, Windows' focus-stealing rules keep
 the new window *behind* the one they are working in — fullscreen or not — and
 every screenshot is of their browser. The run itself is fine (the report's
@@ -2090,7 +2090,7 @@ the default, names sorted, values in lower case (`query` in opensubtitles.rs).
 
 The JWT from `/login` expires in roughly 24 hours; OpenSubtitles' own Kodi
 add-on renews it after 20. There is no refresh token and no device approval,
-so renewing means the password. Kinema keeps it (DPAPI on Windows) and, when
+so renewing means the password. Skrin keeps it (DPAPI on Windows) and, when
 signing in again fails, carries on with the free allowance rather than
 failing the download.
 
@@ -2113,7 +2113,7 @@ says how many pages; an account's 135 films arrived as 100), and
 `/sync/watched/shows` returns the shows **without** their seasons and episodes,
 whatever `extended` says — so a comparison built on it saw no watched episodes
 at all. `/sync/watched/episodes` has them, but names each by its own ids, not
-its show's. **Do:** read every page of the films, and ask each show Kinema has
+its show's. **Do:** read every page of the films, and ask each show Skrin has
 episodes of for its progress (`/shows/:id/progress/watched`, by IMDb id, or the
 Trakt id found from the TMDB id), which marks each episode `completed`.
 
@@ -2196,7 +2196,7 @@ mpv's shared-mode 7.1 stream passed `IsFormatSupported` and then failed
 film playing silent, no error in the UI. **Cause, found on the test TV:**
 a half-configured spatial mode — the device's format dropdown switched to an
 Atmos option without Dolby Access installed and spatial sound enabled. Nothing
-could play in that state, not just Kinema. Once Dolby Access was set up and
+could play in that state, not just Skrin. Once Dolby Access was set up and
 only the spatial-sound option switched on, mpv's 7.1 opened normally
 (`equipment:` then read `dynamic=20 static-mask=0xc1ffe`) and the fallback
 never ran. Keep the fallback: a misconfigured Windows is exactly the case it
@@ -2213,7 +2213,7 @@ receiver" (bitstream) keeps it.
 When mpv cannot open the audio output it logs "Audio: no audio" and
 **deselects** the audio track, rather than leaving it selected with nowhere to
 go. So "is a track selected but not playing?" never fires. The sign is a file
-with audio tracks and none selected — which Kinema never asks for, having no
+with audio tracks and none selected — which Skrin never asks for, having no
 "audio off". Putting the same track back (`set aid N`) is what reopens the
 output with new settings; `ao-reload` alone leaves it silent.
 `silencedAudioTrack` in `audioOutput.ts`; staged in `selftest.ps1` by setting
@@ -2276,7 +2276,7 @@ it back to 0 on restore, when mpv's own stale value is right again.
 
 ### A full-screen window keeps the size of the mode it was made full screen in
 
-On the TV PC, with the desktop at 1080p, Kinema switched the TV to 4K for a 4K
+On the TV PC, with the desktop at 1080p, Skrin switched the TV to 4K for a 4K
 film and the film went on playing in the top-left quarter of the screen: the
 window was still 1920×1080. Tauri sizes a full-screen window once, to the
 screen's bounds at that moment, and Windows moves nothing when the screen
@@ -2370,7 +2370,7 @@ takes nothing.
 
 ## Environment (Windows)
 
-### A running Kinema does not see a program installed after it started
+### A running Skrin does not see a program installed after it started
 
 The same as the shell entry below, inside the app: a process keeps the `PATH`
 it was started with, so `Command::new("ffmpeg")` fails for an ffmpeg winget
@@ -2379,7 +2379,7 @@ to the *user* `PATH` in the registry, which nothing running re-reads. No
 error, only "not found" until the next start. `ffmpeg.rs`
 (`installed_since_start`) looks in the registry's `PATH`, winget's links
 folder and its package folder when the bare name is not found. Anything else
-Kinema learns to install the same way needs the same.
+Skrin learns to install the same way needs the same.
 
 ### Spawned shells inherit a stale PATH
 
@@ -2455,6 +2455,39 @@ yourself fails. Proof: `scripts/sandbox-installer-update.ps1` (previous release
 → new setup with defaults). A real taskbar pin cannot be made by script, so
 the Sandbox run uses a copied shortcut for it.
 
+### Windows Sandbox: the app needs WebView2 found its own way, not the installer's
+
+A sandbox has no WebView2. Setting the EdgeUpdate `pv` value and mapping this
+PC's WebView2 folder in makes the setups pass (exit 0), but the app itself then
+opens "Could not find the WebView2 Runtime" (an error box with a sound) and
+never creates its data folder: its loader does not find the engine by that
+value. Many sandbox runs were lost to this, each looking like a test failure.
+`WEBVIEW2_BROWSER_EXECUTABLE_FOLDER` set machine-wide to the lent version's
+folder is what the loader reads. Every `scripts/sandbox-*.ps1` does it through
+`scripts/sandbox-common.ps1` (`Add-SandboxWebView2`), which also stops a run
+with a result line if the engine is missing, before any app starts. A new
+sandbox script uses that helper; nothing else. Also: a self-test run keeps its
+library beside its plan, so a test of the real library starts the app plainly.
+
+### A new product name is a new program to the installer
+
+Tauri's NSIS installer files everything under the product name: the install
+folder (`%LOCALAPPDATA%\<productName>`), the Apps entry
+(`Uninstall\<productName>`), the shortcuts (`<productName>.lnk`) and the
+"already installed" check. Renaming Kinema to Skrin would have installed Skrin
+beside Kinema with no error: two Apps entries, two Start-menu entries, one
+library. `hooks.nsh`'s `NSIS_HOOK_PREINSTALL` runs Kinema's uninstaller first
+with `/S /UPDATE _?=<old folder>` (update mode: no library question, no
+default-player clean-up), then deletes the shortcuts an update leaves. The app
+id (`identifier`) is separate and decides the data folder, so it stayed
+`com.kinema.app`. Linux has the same trap: a new package name installs beside
+the old one. apt follows the deb's `Conflicts`/`Replaces` and removes Kinema
+(checked with `apt-get install -s`). dnf does not: `dnf install ./skrin.rpm`
+and `dnf upgrade ./skrin.rpm` both left Kinema installed beside Skrin on the
+Linux test PC, `Obsoletes` or not, and an unversioned `Provides: kinema` makes
+dnf read the `Obsoletes` as Skrin's own. Only `dnf swap kinema ./skrin.rpm`
+swaps them, so the release notes say that.
+
 ### A clean Windows lacks `VCRUNTIME140.dll`, and error 126 blames the wrong file
 
 The plugin's prebuilt `libmpv-wrapper.dll` needs Microsoft's Visual C++ runtime
@@ -2465,7 +2498,7 @@ which is not. The ZIP had this fault too, and it hid for a long time because
 every PC used for testing already had the runtime, and the Sandbox harnesses
 copied `vcruntime140.dll` in.
 **Do:** Windows builds the wrapper from its pinned source with the C runtime
-built in (`scripts/build-mpv-wrapper.sh`, `crt-static`), and `kinema.exe` has
+built in (`scripts/build-mpv-wrapper.sh`, `crt-static`), and `skrin.exe` has
 its own built in already. **Never copy a runtime into a test sandbox** — it
 hides exactly this.
 
@@ -2549,7 +2582,7 @@ frame constants for Videos have.
 ### New files on Linux are readable by every account
 
 Windows' app data is private to its user; a folder created on Linux with the
-default umask is not. Kinema's holds sign-in tokens, so `util::keep_private`
+default umask is not. Skrin's holds sign-in tokens, so `util::keep_private`
 makes it `0700` at every start.
 
 ### Inside WSL, `npm` is Windows' npm until Linux has its own
@@ -2588,13 +2621,13 @@ rewrite it on open; never let a stored path depend on where it was written.
 ### On Linux, mpv opens a window of its own
 
 `force-window=yes` keeps an idle surface for the transparent window to show,
-and on Windows that surface lives in Kinema's window through `--wid`. On
+and on Windows that surface lives in Skrin's window through `--wid`. On
 Linux it does not, for two different reasons. Under Wayland the plugin
 cannot give mpv a window at all ("Window embedding via --wid is not
-supported on Wayland"). Under X11 it does — `options/wid` reads Kinema's
+supported on Wayland"). Under X11 it does — `options/wid` reads Skrin's
 window — but mpv still picks its Wayland context first whenever
 `WAYLAND_DISPLAY` is set, and opens its own window anyway. Only an explicit
-`gpu-context` would make it draw into Kinema's window, and on X11 that is on
+`gpu-context` would make it draw into Skrin's window, and on X11 that is on
 top of the page, not under it.
 
 ### A library's warnings go nowhere unless something listens
@@ -2615,11 +2648,11 @@ the development PC).
 
 ### The libmpv wrapper crashes on a client message
 
-`script-message` is the obvious way for an mpv key binding to tell Kinema
+`script-message` is the obvious way for an mpv key binding to tell Skrin
 something, and the first key pressed took the whole program down. The
 wrapper (libmpv-wrapper v0.1.1, `src/event.rs`) walks a client message's
 arguments until it meets a null pointer, but mpv gives a count, not a
-terminator; it reads past the end. Nothing in Kinema may send or cause a
+terminator; it reads past the end. Nothing in Skrin may send or cause a
 client message while that stands. Keys come through an observed property
 instead (`mpvKeys.ts`).
 
@@ -2640,7 +2673,7 @@ seek bar cannot be dragged. Only a script's binding with `complex = true`
 is told both. That is why the mouse on mpv's own window goes through a Lua
 script (`pointer/mouse.lua`), and the keys do not.
 
-The script reports through a property, and Kinema hears a property's latest
+The script reports through a property, and Skrin hears a property's latest
 value, not every value it had: a quick click's press and release can fall
 between two readings. Each report therefore carries the last several
 events, numbered (`mpvMouse.ts`).
@@ -2666,7 +2699,7 @@ copies the new event and leaks the original, one per mouse move.
 ### A covered WebKitGTK window stops producing snapshots
 
 On Linux the player's page reaches the screen as a snapshot mpv draws
-(`overlay.rs`), taken while mpv's window covers Kinema's. With the WebKitGTK of
+(`overlay.rs`), taken while mpv's window covers Skrin's. With the WebKitGTK of
 2026-10, in nested KWin 5.27 and GNOME 46, the snapshots simply stopped
 arriving after about a second — no error, the callback never runs — because the
 compositor stops asking a covered window to draw, and WebKit's DMA-BUF renderer
@@ -2722,7 +2755,7 @@ Wayland box with an Intel card showed the whole page missing, with no error in
 any log (GitHub #17). Our WSL and headless runs never showed it, which is why it
 reached a release. So Linux's window is opaque (`tauri.linux.conf.json`), which
 costs nothing: mpv has a window of its own there, so nothing has to show through
-Kinema's.
+Skrin's.
 
 The page stays transparent, and that is what the player needs. The photo for mpv
 asks WebKit for a transparent background, and keeps its see-through parts with an
@@ -2738,20 +2771,20 @@ if they drift apart.
 
 Before that it has exactly nine arguments, and eleven are refused ("has only
 9 arguments"). `overlay.ts` tries with `dw`/`dh` and falls back once; the
-unscaled page then only lines up when Kinema's window is the screen's size.
+unscaled page then only lines up when Skrin's window is the screen's size.
 
 Decide that by `mpv-version`, not by the failure. The error that reaches the
 page is the plugin's generic "error running command" — the "9 arguments" is
 only in `mpv.log` — and the same error comes from an mpv shutting down as the
 player closes. The first version took any failure for an old mpv: on the test
 stick, mpv 0.41 logged "cannot scale the page" as each run ended, and in use
-that path would have made Kinema's window full screen after the player had
+that path would have made Skrin's window full screen after the player had
 gone.
 
 ### Quitting with mpv still running crashes on Linux
 
 The plugin shuts mpv down only when a window's close button is pressed.
-Kinema also quits by itself — Leave → Close, sleep, shut down, the end of a
+Skrin also quits by itself — Leave → Close, sleep, shut down, the end of a
 self-test — through `app.exit`, and mpv was left running. On Linux the
 graphics library then unloads its driver while mpv's video thread is still
 drawing with it: a segfault in the `vo` thread during `exit()`, after
@@ -2761,7 +2794,7 @@ to survive it). `RunEvent::Exit` now destroys mpv first, on every system.
 ### Quitting with a film on a dead network mount: three silent waits
 
 A film on a share that has stopped answering (sshfs stopped, a dead SMB
-server) left Kinema running after its window closed, with nothing in the log:
+server) left Skrin running after its window closed, with nothing in the log:
 
 1. The close button never reaches `ExitRequested`: the mpv plugin's own
    `CloseRequested` handler prevents the close, destroys mpv (which waits on
@@ -2793,7 +2826,7 @@ Cinnamon's window manager, Muffin, is a fork of Mutter and kept
 `DisplayConfig` request for request — the same `GetCurrentState` and
 `ApplyMonitorsConfig`, the same shapes — but renamed the service to
 `org.cinnamon.Muffin.DisplayConfig` at `/org/cinnamon/Muffin/DisplayConfig`.
-Asked by GNOME's name, a Cinnamon session answers nothing, and Kinema used to
+Asked by GNOME's name, a Cinnamon session answers nothing, and Skrin used to
 offer no switching there at all. It answers in Cinnamon's X11 session (Linux
 Mint's default) as well as on Wayland, lists no colour modes and has no HDR.
 To test it without a Cinnamon machine, Xvfb is not enough: its one mode has
@@ -2841,7 +2874,7 @@ surface (mpv.log: "Available surface configurations"). With nothing HDR to
 pick, mpv converts the film to SDR and `video-target-params` says gamma 2.2,
 BT.709, 203 nits; nothing is logged as an error. OpenGL is no way round it:
 mpv has no colour-space hint there and targets BT.1886. This is the driver,
-not Kinema, and not fixable by an option: on such a machine HDR films play
+not Skrin, and not fixable by an option: on such a machine HDR films play
 tone-mapped to SDR. (Mesa's Vulkan for AMD and Intel is meant to offer the
 HDR colour spaces through `wp_color_management`; not yet tried here.)
 
@@ -2849,26 +2882,26 @@ HDR colour spaces through `wp_color_management`; not yet tried here.)
 
 Plasma 5.27's `kscreen-doctor -j` aborted now and then on its own heap
 corruption (`corrupted size vs. prev_size in fastbins`, exit by SIGABRT) —
-twice in three Kinema starts under a nested KWin, both while a film was
+twice in three Skrin starts under a nested KWin, both while a film was
 starting, and not once in 200 calls made one after another or in pairs
-under load. Kinema asks once per launch which desktop it is on, so one crash
-at that moment meant "not a desktop Kinema can ask" for the whole session:
+under load. Skrin asks once per launch which desktop it is on, so one crash
+at that moment meant "not a desktop Skrin can ask" for the whole session:
 no switching, and the equipment check saying it could not read the screens,
 with nothing else logged. `kscreen.rs` now asks once more when the program
 ended by a signal (an ordinary failure, such as an unknown mode, is not
 repeated), and `desktop.rs` logs why a Plasma session was not recognised.
-Plasma 6.6's did not crash once in a full run on a real TV (six Kinema
+Plasma 6.6's did not crash once in a full run on a real TV (six Skrin
 starts, a switch and a restore), so it may be 5.27's alone; the retry stays.
 
-### Tiling desktops tile Kinema's window beside the film's
+### Tiling desktops tile Skrin's window beside the film's
 
-On Linux the player's controls are a photo of Kinema's window drawn over
-mpv's. Sway and Hyprland tile windows, so when mpv's window appears Kinema's
+On Linux the player's controls are a photo of Skrin's window drawn over
+mpv's. Sway and Hyprland tile windows, so when mpv's window appears Skrin's
 is squeezed beside it (933 of 1920 pixels on Hyprland) and the photo is
 scaled to the film's shape — stretched and soft, with no error anywhere; on
 GNOME and Plasma windows float and it never showed. Both float a window
 whose minimum and maximum size are equal *when it appears*, so
-`display.rs` → `player_window` hides Kinema's window and shows it again
+`display.rs` → `player_window` hides Skrin's window and shows it again
 undecorated at the screen's size, fixed, while the film is full screen.
 Undecorated matters: GTK's invisible shadow margins and title bar made a
 "1600×900" window 1560×860 of page. It must stop floating when the film
@@ -2899,7 +2932,7 @@ requests the desktop handled first; while playing it never showed.
 **Do:** where the picture is mpv's own window, put the screen back *first*,
 while that window is still full screen and simply follows the screen
 (`useScreen.ts` → `leaveFullscreen`), and do not take it out of full screen
-at all when the player closes — the window closes with the film. Kinema's
+at all when the player closes — the window closes with the film. Skrin's
 own window (Windows) keeps the old order.
 
 ### Hyprland's report does not show HDR it passes through
@@ -2933,7 +2966,7 @@ the player plugin is named.
 
 The system's Back — a remote's Back button, a phone's gesture — is not a
 key the page receives. Tauri's activity sends it to the WebView's own
-history, and Kinema has none, so Back in the middle of Settings left the
+history, and Skrin has none, so Back in the middle of Settings left the
 app for the TV's home screen. **Do:** listen with `onBackButtonPress`
 (`@tauri-apps/api/app`); with a listener present Tauri leaves the press to
 it. `backButton.ts` passes it on as a `BrowserBack` key press to whatever
@@ -2953,7 +2986,7 @@ does not, so on a fresh start OK on the first-run page did nothing, twice.
 picker is not implemented on mobile". Android TV 11 and later often has no
 system folder picker either, and where there is one it answers with a
 document address, not a path the scanner can walk. **Do:** ask
-`chooseFolder` (`library/folders.ts`), which opens Kinema's own browser
+`chooseFolder` (`library/folders.ts`), which opens Skrin's own browser
 wherever the capabilities say `folder_picker: false`.
 
 ### Android shows an app only the kind of file it asked for
@@ -2965,15 +2998,15 @@ no error. Up to Android 12 READ_EXTERNAL_STORAGE shows every file. **Do:**
 treat a missing sidecar on Android as possibly hidden; "All files access"
 (MANAGE_EXTERNAL_STORAGE) brings them back, and is granted in the system's
 settings, not in a dialog. On Android TV that screen is a list of every
-app, whichever of the two intents opens it; the person has to find Kinema
+app, whichever of the two intents opens it; the person has to find Skrin
 in it (`StoragePlugin.kt`).
 
 ### `run-as` does not see what the app sees on a drive
 
 `adb shell run-as com.kinema.app ls /storage/…` answers "Permission
-denied" even when Kinema has been allowed to read the drive: the
+denied" even when Skrin has been allowed to read the drive: the
 permission belongs to the app's process, not to its user id in a shell.
-**Do:** check what Kinema can read through Kinema — the folder browser,
+**Do:** check what Skrin can read through Skrin — the folder browser,
 a scan, a self-test plan that plays a file from the drive.
 
 ### Android says the HDMI output takes a format it then refuses
@@ -3062,7 +3095,7 @@ decoded PCM; then Media3 decodes, or picks a track it can decode.
 
 A Blu-ray stream file (`.m2ts`, 192-byte packets) fails with "None of the
 available extractors": Media3's transport-stream reader reads 188-byte
-packets, and the 192-byte ones of `.m2ts` are not recognised. Kinema reads
+packets, and the 192-byte ones of `.m2ts` are not recognised. Skrin reads
 them with its own extractor (`M2tsExtractor.kt`), which hides the 4 extra
 bytes of each packet from Media3's reader and turns the places it gives out
 back into the file's own. It is added ahead of Media3's list in
@@ -3124,21 +3157,21 @@ registering it twice is harmless if a later Tauri does it too.
 
 ### An app behind the home screen goes on working, and Android lets it
 
-Nothing stops a page or its native side when Kinema leaves the screen: the
+Nothing stops a page or its native side when Skrin leaves the screen: the
 WebView only slows the page's timers, and a worker and Rust's threads are not
 slowed at all. A scan left behind on a 2-core box read file names at one full
-core, and the box got slower with Kinema nowhere in sight, so people force
-closed it. There is no error, and an idle Kinema or a film left paused cost
+core, and the box got slower with Skrin nowhere in sight, so people force
+closed it. There is no error, and an idle Skrin or a film left paused cost
 next to nothing, so only a scan shows it. **Do:** work a person is not waiting for calls
 `yieldToPlayback` (page) or `jobs::wait_for_turn` (Rust) between its units, and
 gives a worker small parts rather than one long batch, which cannot be stopped.
-`presence.ts` turns Kinema's being in front or not into those two flags; any key
+`presence.ts` turns Skrin's being in front or not into those two flags; any key
 proves it is in front, because a scan waiting by mistake looks like one that
 never ends. A desktop never sets them.
 
 ### A TV box's screen going off stops a scan, and says nothing until someone is back
 
-When a box goes to sleep at its screen timeout, Kinema has left the screen, so
+When a box goes to sleep at its screen timeout, Skrin has left the screen, so
 the rule above holds the scan there. A film stays awake on its own. Seen on a box
 whose timeout is 60 minutes: the scan stopped at the moment the screen went off
 and went on at wake with nothing lost, and the "Picked up after a pause" line
@@ -3146,7 +3179,7 @@ only shows once someone is there to read it. **Do:** a library's first scan keep
 the screen on (`screenHold.ts`, Android's `FLAG_KEEP_SCREEN_ON`), on a lease it
 renews as the work moves on, so a step that hangs cannot hold a TV awake for
 good; a film lets go, since a paused one could otherwise do just that. Later
-scans still wait. The flag stays set when Kinema is behind, and Android ignores
+scans still wait. The flag stays set when Skrin is behind, and Android ignores
 it there: `dumpsys window` showing it proves nothing about the screen, read
 `mWakefulness`. An emulator has `stay_on_while_plugged_in` at 15 and never sleeps
 until that is 0, which looks exactly like a hold that is never let go.
@@ -3184,7 +3217,7 @@ keeps playing in the background keeps it, and the next app gets "no video
 decoders available" (`ERROR_CODE_DECODER_INIT_FAILED`, `0xfffffff4`); if
 the next app is in front, Android takes it back from the one behind
 (`ERROR_CODE_DECODING_RESOURCES_RECLAIMED`). **Do:** pause and `stop()` the
-player when Kinema leaves the screen, `prepare()` it again, paused, when it
+player when Skrin leaves the screen, `prepare()` it again, paused, when it
 returns (`Media3Plugin.kt`, `suspended`).
 
 ### smb-rs, the SMB library, needed two fixes to stream at all
@@ -3251,6 +3284,6 @@ EDL saved as `.mkv` is opened as that playlist, and mpv then requests every
 address in it, `http://` included. With yt-dlp installed, mpv's ytdl helper
 visits the address again posing as a browser. **Do:** keep
 `access-references=no` and `ytdl=no` in `BASE_MPV_OPTIONS` (`mpvOptions.ts`);
-Kinema reads its own playlists. The same switch also turns off Matroska
+Skrin reads its own playlists. The same switch also turns off Matroska
 ordered chapters (mpv `demux_mkv_timeline.c`), so such a file plays straight
 through; `bd://` and `sub-add` are not references and still work.

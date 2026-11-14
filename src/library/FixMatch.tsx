@@ -80,10 +80,10 @@ interface Props {
 const QUEUE_LIMIT = 2000;
 
 /**
- * The website's guide to the names Kinema understands. Most refusals are a
+ * The website's guide to the names Skrin understands. Most refusals are a
  * name the parser could not read, and renaming is often quicker than a search.
  */
-const FILE_NAMES_GUIDE = 'https://basswaves.github.io/kinema/file-names.html';
+const FILE_NAMES_GUIDE = 'https://skrin.org/file-names.html';
 
 function GuideLink() {
   return (
@@ -92,7 +92,7 @@ function GuideLink() {
      
       onSelect={() => void openLink(FILE_NAMES_GUIDE)}
     >
-      How Kinema reads file names ↗
+      How Skrin reads file names ↗
     </FocusButton>
   );
 }
@@ -211,7 +211,7 @@ export default function FixMatch({ onChanged }: Props) {
     return (
       <section className="fixmatch">
         <p className="muted">
-          Nothing needs attention: every file found has its title. Files Kinema will not guess
+          Nothing needs attention: every file found has its title. Files Skrin will not guess
           at appear here, with the reason.
         </p>
         <GuideLink />
@@ -225,7 +225,7 @@ export default function FixMatch({ onChanged }: Props) {
         <h2>Needs attention</h2>
         {pending.length > 0 && (
           <span className="muted">
-            {pending.length} title{pending.length === 1 ? '' : 's'} Kinema would not guess at
+            {pending.length} title{pending.length === 1 ? '' : 's'} Skrin would not guess at
           </span>
         )}
       </header>
@@ -471,19 +471,19 @@ function adviceFor(reason: string): string {
   if (/^unlinked by hand/.test(reason)) {
     return 'You unlinked this from a wrong title. It waits here until you pick the right one below.';
   }
-  // Refused by a version of Kinema that had nothing to look movies up with.
+  // Refused by a version of Skrin that had nothing to look movies up with.
   if (/no provider available/.test(reason)) {
-    return 'Kinema had no way to look this up when it was scanned. Search for it below.';
+    return 'Skrin had no way to look this up when it was scanned. Search for it below.';
   }
   // A lookup that got no answer decided nothing: it is not "could not identify".
   if (/could not be reached|did not answer, but answers now|error sending request/.test(reason)) {
-    return 'Kinema could not reach the service it looks titles up with when this was scanned. The next scan asks again, or search below.';
+    return 'Skrin could not reach the service it looks titles up with when this was scanned. The next scan asks again, or search below.';
   }
   if (/no candidates (returned|scored)/.test(reason)) {
     return 'Nothing came back for this name. Search for it below using the real title.';
   }
   if (/ambiguous vs/.test(reason)) {
-    return 'Two releases looked equally likely, so Kinema did not choose. Pick the right one below.';
+    return 'Two releases looked equally likely, so Skrin did not choose. Pick the right one below.';
   }
   if (/tie vs/.test(reason)) {
     return 'A close call between two titles. Check the choice below is the one you meant.';
@@ -500,7 +500,7 @@ function adviceFor(reason: string): string {
   if (/^title \d+%/.test(reason)) {
     return 'The name was too different from anything found. Search below with the real title.';
   }
-  return 'Kinema could not identify this. Search for it below.';
+  return 'Skrin could not identify this. Search for it below.';
 }
 
 function GroupRow({
@@ -565,7 +565,7 @@ function GroupRow({
     ? 'no title in the file name or its folders'
     : withoutQueries(group.files.find((f) => f.match_reason)?.match_reason ?? 'not matched yet');
   const advice = group.untitled
-    ? 'Kinema could not read a title from this file or the folders around it. Search for what it is below.'
+    ? 'Skrin could not read a title from this file or the folders around it. Search for what it is below.'
     : adviceFor(reason);
 
 

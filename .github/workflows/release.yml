@@ -7,7 +7,7 @@
 # everything and publishes nothing — the files are left as the run's
 # artifacts, to check a change to this workflow without a release.
 #
-# File names carry no version (kinema-windows-x64-setup.exe, not
+# File names carry no version (skrin-windows-x64-setup.exe, not
 # kinema-0.13.0-windows-x64-setup.exe), so the website can link straight to
 # releases/latest/download/<name>; the version is in the release's tag.
 #
@@ -40,7 +40,7 @@ jobs:
   check:
     # The tag, the version the program reports and the version the files carry
     # must be the same, or the release would say one thing and ship another
-    # (and Kinema's update check would never settle). Stops the build jobs.
+    # (and Skrin's update check would never settle). Stops the build jobs.
     if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     steps:
@@ -114,7 +114,7 @@ jobs:
         shell: bash
         run: bash scripts/build-mpv-wrapper.sh
 
-      # Kinema's own TMDB key (src/metadata/builtinKey.ts), from a repository
+      # Skrin's own TMDB key (src/metadata/builtinKey.ts), from a repository
       # secret so it is never in the source. A release without it would still
       # run, as a build from source does, but would leave movies unidentified
       # for everyone who has no key of their own — so a missing secret stops
@@ -131,17 +131,17 @@ jobs:
       - name: Build the portable app and the installer
         env:
           VITE_TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-          # Kinema's SIMKL app ID (src-tauri/src/simkl.rs), compiled in. Not a
+          # Skrin's SIMKL app ID (src-tauri/src/simkl.rs), compiled in. Not a
           # secret to SIMKL, but kept out of the source so the repository does
           # not say whose account registered it. Optional: a release without
           # it simply has no SIMKL, as a build from source does.
           KINEMA_SIMKL_CLIENT_ID: ${{ secrets.SIMKL_CLIENT_ID }}
-          # Kinema's Trakt app (trakt.rs). Trakt's device sign-in needs the
+          # Skrin's Trakt app (trakt.rs). Trakt's device sign-in needs the
           # secret as well as the ID; like the TMDB key, it is readable by
           # anyone holding the app. Optional, as SIMKL's is.
           KINEMA_TRAKT_CLIENT_ID: ${{ secrets.TRAKT_CLIENT_ID }}
           KINEMA_TRAKT_CLIENT_SECRET: ${{ secrets.TRAKT_CLIENT_SECRET }}
-          # Kinema's OpenSubtitles app key (opensubtitles.rs). Optional too.
+          # Skrin's OpenSubtitles app key (opensubtitles.rs). Optional too.
           KINEMA_OPENSUBTITLES_API_KEY: ${{ secrets.OPENSUBTITLES_API_KEY }}
         run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-app.ps1 -NoShortcut -Installer
 
@@ -149,14 +149,14 @@ jobs:
         shell: pwsh
         run: |
           $version = (Get-Content src-tauri/tauri.conf.json -Raw | ConvertFrom-Json).version
-          $zip = "kinema-windows-x64.zip"
+          $zip = "skrin-windows-x64.zip"
           New-Item -ItemType Directory -Force out | Out-Null
           Compress-Archive -Path dist-app\* -DestinationPath "out\$zip"
           $hash = (Get-FileHash "out\$zip" -Algorithm SHA256).Hash.ToLower()
           # LF, as sha256sum writes it: a CRLF line makes `sha256sum -c` on
           # Linux look for a file whose name ends in a carriage return.
           [IO.File]::WriteAllText("$PWD\out\$zip.sha256", "$hash  $zip`n")
-          $setup = "kinema-windows-x64-setup.exe"
+          $setup = "skrin-windows-x64-setup.exe"
           $built = @(Get-ChildItem src-tauri\target\release\bundle\nsis\*-setup.exe)
           if ($built.Count -ne 1) { throw "Expected one installer, found: $($built.Name -join ', ')" }
           Copy-Item $built[0].FullName "out\$setup"
@@ -268,11 +268,11 @@ jobs:
       # Fedora's container image turns weak dependencies off to stay small;
       # an installed Fedora has them on, which is what this is checking.
       - name: Install the .rpm with dnf
-        run: dnf install -y --setopt=install_weak_deps=True ./kinema-linux-x86_64.rpm
+        run: dnf install -y --setopt=install_weak_deps=True ./skrin-linux-x86_64.rpm
 
       - name: Check mpv and ffmpeg came with it
         run: |
-          rpm -q "$(rpm -qp --qf '%{NAME}' ./kinema-linux-x86_64.rpm)"
+          rpm -q "$(rpm -qp --qf '%{NAME}' ./skrin-linux-x86_64.rpm)"
           rpm -q mpv-libs
           rpm -q ffmpeg-free || rpm -q ffmpeg
           ffprobe -version | head -n 1
@@ -282,7 +282,7 @@ jobs:
     # The signed release APK, for sideloading on a TV box or a phone. Built
     # for 64-bit and 32-bit ARM (the boxes and phones; many TV boxes run a
     # 32-bit Android even on a 64-bit chip). The x86-64 build in ci.yml is for
-    # the emulator and is not shipped. Signed with Kinema's own key, kept as
+    # the emulator and is not shipped. Signed with Skrin's own key, kept as
     # repository secrets (ANDROID_KEYSTORE_BASE64 is the .p12 file in base64);
     # the same key must sign every release or phones refuse to update.
     needs: check
@@ -397,8 +397,8 @@ jobs:
       - name: Package
         run: |
           mkdir -p out
-          cp src-tauri/gen/android/app/build/outputs/apk/universal/release/*.apk "out/kinema-android.apk"
-          cd out && sha256sum kinema-android.apk > kinema-android.apk.sha256
+          cp src-tauri/gen/android/app/build/outputs/apk/universal/release/*.apk "out/skrin-android.apk"
+          cd out && sha256sum skrin-android.apk > skrin-android.apk.sha256
 
       - uses: actions/upload-artifact@v7
         with:
@@ -422,7 +422,7 @@ jobs:
 
       # The winget manifest is for winget.yml, not a file for users.
       - name: Leave the winget manifest out
-        run: rm -f files/Basswaves.Kinema*.yaml
+        run: rm -f files/Basswaves.Skrin*.yaml
 
       - name: Read the checksums for the notes
         run: |
@@ -430,8 +430,8 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           {
             echo "VERSION=$version"
-            echo "WIN_SHA=$(cut -d' ' -f1 kinema-windows-x64.zip.sha256)"
-            echo "SETUP_SHA=$(cut -d' ' -f1 kinema-windows-x64-setup.exe.sha256)"
+            echo "WIN_SHA=$(cut -d' ' -f1 skrin-windows-x64.zip.sha256)"
+            echo "SETUP_SHA=$(cut -d' ' -f1 skrin-windows-x64-setup.exe.sha256)"
           } >> "$GITHUB_ENV"
 
       - name: Publish release
@@ -442,15 +442,15 @@ jobs:
           body: |
             ## Windows
 
-            **Installer:** download `kinema-windows-x64-setup.exe`
+            **Installer:** download `skrin-windows-x64-setup.exe`
             and run it. It installs for your Windows account only (no
-            administrator) and adds Kinema to the Start menu. Uninstall it
+            administrator) and adds Skrin to the Start menu. Uninstall it
             from Settings → Apps: it removes the program, its shortcuts and its
             "Open with" entries, and asks before deleting your library and
             settings.
 
-            **Portable:** or download `kinema-windows-x64.zip`,
-            extract it anywhere, and run `kinema.exe`. Nothing is written
+            **Portable:** or download `skrin-windows-x64.zip`,
+            extract it anywhere, and run `skrin.exe`. Nothing is written
             outside the folder and your app data.
 
             **Windows 11.** Needs the WebView2 runtime, which ships with
@@ -459,15 +459,15 @@ jobs:
 
             #### Windows will ask once whether to run it
 
-            Kinema is not code-signed, so the first time you open it Windows
+            Skrin is not code-signed, so the first time you open it Windows
             shows *"Windows protected your PC"*. Click **More info**, then
             **Run anyway**; Windows remembers. To check that the file you
             downloaded is the one that was published, run this in PowerShell
             in the folder you downloaded it to:
 
             ```powershell
-            Get-FileHash .\kinema-windows-x64-setup.exe -Algorithm SHA256
-            Get-FileHash .\kinema-windows-x64.zip -Algorithm SHA256
+            Get-FileHash .\skrin-windows-x64-setup.exe -Algorithm SHA256
+            Get-FileHash .\skrin-windows-x64.zip -Algorithm SHA256
             ```
 
             Expected: `${{ env.SETUP_SHA }}` for the installer,
@@ -476,24 +476,29 @@ jobs:
 
             ## Linux
 
-            Kinema uses your system's mpv and WebKitGTK; the packages install
+            Skrin uses your system's mpv and WebKitGTK; the packages install
             them for you. For x86-64 PCs take the `amd64` / `x86_64` files,
             for ARM the `arm64` / `aarch64` ones.
 
             **Ubuntu 24.04 or later, Debian 13:**
 
             ```bash
-            sudo apt install ./kinema-linux-amd64.deb
+            sudo apt install ./skrin-linux-amd64.deb
             ```
 
             **Fedora:**
 
             ```bash
-            sudo dnf install ./kinema-linux-x86_64.rpm
+            sudo dnf install ./skrin-linux-x86_64.rpm
             ```
 
-            **Anything else:** unpack `kinema-linux-x86_64.tar.gz`
-            and run `./kinema`; its README.txt names the two libraries (mpv
+            Over Kinema (Skrin's name until 0.17.0), use
+            `sudo dnf swap kinema ./skrin-linux-x86_64.rpm` instead: dnf
+            does not replace a package of another name by itself. Your
+            library is kept.
+
+            **Anything else:** unpack `skrin-linux-x86_64.tar.gz`
+            and run `./skrin`; its README.txt names the two libraries (mpv
             and WebKitGTK) to install. HDR on Wayland needs mpv 0.40 or later — Ubuntu 26.04,
             Debian 13, Fedora 43 and Arch have it.
 
@@ -503,19 +508,19 @@ jobs:
             ## Android (early version)
 
             For Android TV boxes, installed by hand (sideloaded): download
-            `kinema-android.apk`, copy it to the device and
+            `skrin-android.apk`, copy it to the device and
             open it (Android asks once to allow installs from that source).
             It is an early version, tried on one TV box and the emulator; a
             phone has not been tried. See the README for what has been tested
             and what is still missing. Check the download with
-            `sha256sum -c kinema-android.apk.sha256`; the
+            `sha256sum -c skrin-android.apk.sha256`; the
             certificate it is signed with is named in the README.
 
             ## First run
 
-            Kinema asks where it will be watched and where your movies and TV
+            Skrin asks where it will be watched and where your movies and TV
             folders are, then scans — with a few skippable setup pages while it
-            does. Posters and descriptions come from TMDB through a key Kinema
+            does. Posters and descriptions come from TMDB through a key Skrin
             carries, so there is nothing to sign up for; a free key of your own
             can be entered in Settings instead.
 
@@ -526,5 +531,5 @@ jobs:
             Google's Media3 (Apache-2.0) — see [NOTICE.md](NOTICE.md).
 
             Something not working, or it works on a device the README does not
-            list? Say so: [bug report](https://github.com/Basswaves/kinema/issues/new?template=bug_report.yml)
-            or [device report](https://github.com/Basswaves/kinema/issues/new?template=device_report.yml).
+            list? Say so: [bug report](https://github.com/basswaves/skrin/issues/new?template=bug_report.yml)
+            or [device report](https://github.com/basswaves/skrin/issues/new?template=device_report.yml).

@@ -1,11 +1,11 @@
 [package]
-name = "kinema"
+name = "skrin"
 version = "0.16.0"
 description = "A local, serverless media library for movies and TV shows"
 authors = ["Basswaves"]
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/Basswaves/kinema"
+repository = "https://github.com/basswaves/skrin"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

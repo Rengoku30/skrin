@@ -890,7 +890,7 @@ class Media3Plugin(private val activity: Activity) : Plugin(activity) {
       error.errorCode == PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND ->
         "the file is not there any more. It may have been moved, or its drive may be unplugged."
       error.errorCode == PlaybackException.ERROR_CODE_IO_NO_PERMISSION ->
-        "Kinema is not allowed to read it. Check Kinema's permissions in the system's settings."
+        "Skrin is not allowed to read it. Check Skrin's permissions in the system's settings."
       // The code name is in the log; the screen gets words (A4-04).
       else -> "the player stopped with an error it has no words for. The file may be damaged or unsupported."
     }

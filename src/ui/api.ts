@@ -109,12 +109,12 @@ export interface About {
 export const listTitles = () => invoke<Title[]>('list_titles');
 
 export type PowerAction = 'close' | 'sleep' | 'shutdown';
-/** Close Kinema, or put the PC to sleep or shut it down (power.rs). */
+/** Close Skrin, or put the PC to sleep or shut it down (power.rs). */
 export const powerAction = (action: PowerAction) => invoke<void>('power_action', { action });
 
-/** Kinema offered to Windows as a video player (default_player.rs). */
+/** Skrin offered to Windows as a video player (default_player.rs). */
 export const playerOffer = () => invoke<{ offered: boolean }>('player_offer');
-/** Offer Kinema to Windows, then open its page in Default apps. */
+/** Offer Skrin to Windows, then open its page in Default apps. */
 export const offerAsPlayer = () => invoke<void>('offer_as_player');
 export const openDefaultApps = () => invoke<void>('open_default_apps');
 /** Take back everything the offer wrote. */

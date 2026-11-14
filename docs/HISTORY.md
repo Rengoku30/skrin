@@ -1,6 +1,6 @@
 # History
 
-How Kinema was built, and why each decision went the way it did — in the order
+How Skrin (called Kinema until 0.17.0) was built, and why each decision went the way it did — in the order
 it happened. It is long, and nobody needs to read it to use Kinema. It is here
 for anyone who wants to change it: nearly every choice that looks arbitrary in
 the code has its reason in here, and so do the ideas that were tried and
@@ -4591,6 +4591,40 @@ Kinema says either outcome in the details panel: a mode refused ("Kinema
 asked the screen for … and Windows or the graphics driver refused it", with
 where the bandwidth usually goes missing), and a link lowered to fit ("The
 graphics driver lowered the link from … to …").
+
+## Kinema becomes Skrin (2026-11-14)
+
+Another Kinema was already in films: a funded US distribution platform at
+kinema.com, which rents films out for screenings. A name shared with a film
+business is a poor one for a film app, and the app is meant to grow beyond
+films. The name changed before the next round of features, because winget,
+code signing and the posts that introduce the app are all tied to the name.
+
+Skrin was chosen from about twenty candidates: Norwegian and Swedish for a
+small keepsake box, read as "screen" in English. Of eight SKRIN trademarks
+none is in software or media. A Windows screenshot tool under construction is
+also called Skrin, so the full name is "Skrin Media Player". The icon is a
+sleeve with a disc half out of it: something kept, taken out to play. It came
+out of four rounds of drawings, tested at 16 and 24 px, blurred, in one
+colour and in Android's launcher shapes. One finding along the way: a red mark
+on a black tile is how Netflix's own icon is built, whatever the red.
+
+What changed is every name a person sees, the program file (`skrin.exe`,
+`/usr/bin/skrin`), the packages and the downloads. What kept the old name is
+what holds a person's things: the app id `com.kinema.app` and with it the
+data folder (Android: a new id is a new app that cannot update the old one),
+the registry keys behind "Open with" (an offer Kinema made is the same offer,
+moved to the new program at its first start), the Linux menu entry's file,
+and names nobody sees (settings keys, log tags, test tools). The history in
+this file keeps the name things had at the time.
+
+A new product name is a new program to Windows' installer: its own folder,
+Apps entry and shortcuts. The Skrin setup therefore runs Kinema's uninstaller
+first as an update, which takes the program files and the Apps entry but
+never the library, then removes the shortcuts an update leaves. On Linux the
+`skrin` package declares that it replaces `kinema`, so apt and dnf swap them
+instead of installing both. Old copies find the new release because GitHub
+forwards a renamed repository's address, the API's included.
 
 ## Open items
 

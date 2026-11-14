@@ -1,11 +1,11 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "mainBinaryName": "kinema",
+  "mainBinaryName": "skrin",
   "bundle": {
     "active": true,
     "targets": ["nsis"],
     "publisher": "Basswaves",
-    "homepage": "https://github.com/basswaves/kinema",
+    "homepage": "https://github.com/basswaves/skrin",
     "license": "MIT",
     "shortDescription": "A local, serverless media library for movies and TV shows",
     "resources": {

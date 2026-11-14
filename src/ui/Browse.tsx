@@ -146,8 +146,8 @@ export default function Browse() {
   });
   const view = current(stack);
   /**
-   * Kinema was started to play a file: when it is done — it ends, or Back —
-   * Kinema closes rather than showing Home (LOCAL-MEDIA.md, decision 2).
+   * Skrin was started to play a file: when it is done — it ends, or Back —
+   * Skrin closes rather than showing Home (LOCAL-MEDIA.md, decision 2).
    * Already running when a file came, it goes back to where it was.
    */
   const closeWhenDone = useRef(launchRequest()?.launched ?? false);
@@ -188,7 +188,7 @@ export default function Browse() {
   const [scanFailed, setScanFailed] = useState<ScanTrouble | null>(null);
   /** The startup scan's problems, put into words as they stand (scanTrouble.ts). */
   const [scanErrors, setScanErrors] = useState<string[]>([]);
-  /** Videos Kinema would not guess at, for the notice on Home and the badge. */
+  /** Videos Skrin would not guess at, for the notice on Home and the badge. */
   const reviewCount = useReviewCount();
   const scanTrouble = scanFailed ?? describeScanTrouble(scanErrors, reviewCount > 0);
   const dismissScanTrouble = useCallback(() => {
@@ -206,7 +206,7 @@ export default function Browse() {
   const [ffmpegMissing, setFfmpegMissing] = useState(false);
   /** Installed with the notice's own button: the notice goes at once. */
   const ffmpegJustInstalled = ffmpegInstalled(useFfmpegInstall().report);
-  /** A newer Kinema, for the dot on Settings. */
+  /** A newer Skrin, for the dot on Settings. */
   const [hasUpdate, setHasUpdate] = useState(false);
   /** The setup pages are up on Home (SetupPages.tsx). */
   const [setupOpen, setSetupOpen] = useState(false);
@@ -236,7 +236,7 @@ export default function Browse() {
   );
 
   /**
-   * A video opened while Kinema runs — passed on by a second Kinema started
+   * A video opened while Skrin runs — passed on by a second Skrin started
    * for it, or dropped on the window. It plays on top of whatever is open, and
    * Back returns there; over a film already playing, it takes its place.
    */
@@ -279,7 +279,7 @@ export default function Browse() {
     [titles]
   );
 
-  /** Leaving the player: Back, or Kinema closes if it was started for the file. */
+  /** Leaving the player: Back, or Skrin closes if it was started for the file. */
   const exitPlayer = useCallback(() => {
     if (closeWhenDone.current) setClosing(true);
     else goBack();
@@ -287,11 +287,11 @@ export default function Browse() {
 
   // The player has gone by now, and with it the save of where the video was
   // left (useProgressSave's cleanup). A moment for that to be written, then
-  // Kinema closes.
+  // Skrin closes.
   useEffect(() => {
     if (!closing) return;
     const id = window.setTimeout(() => {
-      void powerAction('close').catch((e) => console.warn('could not close Kinema', e));
+      void powerAction('close').catch((e) => console.warn('could not close Skrin', e));
     }, 300);
     return () => window.clearTimeout(id);
   }, [closing]);
@@ -369,8 +369,8 @@ export default function Browse() {
           });
         } else if (outcome.status === 'done' && lookupsUnreachable(outcome.summary.errors)) {
           setScanFailed({
-            text: 'Kinema could not reach the services that name films and shows. Check the internet connection',
-            note: 'Kinema asks again at the next scan and every time it starts',
+            text: 'Skrin could not reach the services that name films and shows. Check the internet connection',
+            note: 'Skrin asks again at the next scan and every time it starts',
             offline: true,
           });
         }
@@ -430,7 +430,7 @@ export default function Browse() {
     let cancelled = false;
     // A self-test works on a copy of the library and must not download
     // anything into it or spend time on it — see src/selftest.ts.
-    // Nor when started for a video: Kinema closes once it is done.
+    // Nor when started for a video: Skrin closes once it is done.
     selfTestPlan()
       .then((plan) =>
         plan || closeWhenDone.current ? { stored: 0, failed: 0 } : cacheArtwork()
@@ -472,7 +472,7 @@ export default function Browse() {
     // Never under a self-test: the scan would end by running Skiptro and
     // ffmpeg over the real media, which is the opposite of a harmless test.
     // Nor when started for a video: it would read every library folder for
-    // a Kinema that closes as soon as the video is done.
+    // a Skrin that closes as soon as the video is done.
     selfTestPlan()
       .then((plan) => (plan || closeWhenDone.current ? null : runScanPipeline()))
       .then((outcome) => {
@@ -526,7 +526,7 @@ export default function Browse() {
     let cancelled = false;
     void selfTestPlan().then((plan) => {
       if (!plan || cancelled) return;
-      // An interactive run (the Kinema MCP) names its own file on each `play`.
+      // An interactive run (the Skrin MCP) names its own file on each `play`.
       const play = (target?: Partial<PlaybackTarget>) =>
         openView(
           {
@@ -719,7 +719,7 @@ export default function Browse() {
     return () => setPlaybackActive(false);
   }, [inPlayer]);
 
-  // Black, as the player's own cover is, for the moment before Kinema closes.
+  // Black, as the player's own cover is, for the moment before Skrin closes.
   if (closing) return <div className="player-cover" />;
 
   if (view.name === 'player') {
@@ -729,7 +729,7 @@ export default function Browse() {
         onPlayTarget={playOn}
         // Back to the page Play was pressed on. Home re-reads the library
         // whenever it is shown, so what just played is reflected there too.
-        // Started for the file, Kinema closes instead.
+        // Started for the file, Skrin closes instead.
         onExit={exitPlayer}
       />
     );
@@ -915,7 +915,7 @@ export default function Browse() {
         )}
 
         {view.name === 'grid' && (
-          // On Kinema's own engine (focusEngine.tsx, round 7). Each shelf a
+          // On Skrin's own engine (focusEngine.tsx, round 7). Each shelf a
           // screen of its own: from Movies to TV shows lands again.
           <FocusScreen key={view.heading}>
           <GridView
@@ -934,7 +934,7 @@ export default function Browse() {
           </FocusScreen>
         )}
 
-        {/* On Kinema's own engine (focusEngine.tsx, round 7, F2), each a
+        {/* On Skrin's own engine (focusEngine.tsx, round 7, F2), each a
             screen of its own: a page opened from another lands again. */}
         {view.name === 'collection' && (
           <FocusScreen key={`collection:${view.id ?? 'new'}`}>
@@ -1074,7 +1074,7 @@ function TopNav({
     <FocusProvider value={focusKey}>
       {/* `data-sticky-top`: what the one scroll rule keeps clear (focusScroll.ts). */}
       <nav className="top-nav" ref={ref} data-sticky-top="">
-        <span className="brand">Kinema</span>
+        <span className="brand">Skrin</span>
         {NAV_ITEMS.map(([name, label]) => (
           <FocusButton
             key={name}

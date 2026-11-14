@@ -5,6 +5,32 @@ Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semantic
 versioning](https://semver.org/), with the usual caveat that a `0.x` release
 makes no stability promises.
 
+## [Unreleased]
+
+**Kinema is now Skrin Media Player.** Only the name and the icon change. Your
+library, settings, watch history and sign-ins stay as they are, and so does an
+installed Android copy, which updates in place. Older entries below keep the
+name the app had then.
+
+### Changed
+
+- **The name is Skrin** ("Skrin Media Player"), with a new icon: a sleeve with a
+  disc half out of it. "Skrin" is Norwegian and Swedish for a small keepsake box.
+- **Installing Skrin over Kinema** on Windows (installer or winget) removes
+  Kinema's program files, Start-menu and desktop shortcuts and its Apps entry
+  first, then installs Skrin in its own folder. The library and settings are
+  kept, and "Open with" moves to Skrin by itself at its first start.
+- **On Linux** the `skrin` package replaces `kinema`: `sudo apt install
+  ./skrin-linux-amd64.deb` removes Kinema by itself; on Fedora use
+  `sudo dnf swap kinema ./skrin-linux-x86_64.rpm` (a plain `dnf install` would
+  put Skrin beside Kinema). The program is `/usr/bin/skrin`. A copy of the folder download added to the
+  app menu is renamed in the menu at its first start.
+- **Download names** are `skrin-…` (`skrin-windows-x64-setup.exe`,
+  `skrin-linux-amd64.deb`, `skrin-android.apk` and so on), the program is
+  `skrin.exe`, and the project lives at
+  [github.com/basswaves/skrin](https://github.com/basswaves/skrin). Older
+  copies still find updates there: GitHub forwards the old address.
+
 ## [0.16.0] — 2026-11-14
 
 An outside review of the whole program led to most of this release: what

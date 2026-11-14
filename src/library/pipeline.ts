@@ -79,7 +79,7 @@ export interface ScanStatus {
   stage: ScanStage;
   /** What it is working on right now — a count, or the title being matched. */
   detail: string;
-  /** It waited while Kinema was behind another app, and has just gone on. */
+  /** It waited while Skrin was behind another app, and has just gone on. */
   waited?: boolean;
 }
 
@@ -123,7 +123,7 @@ function emit(): void {
   for (const listener of listeners) listener();
 }
 
-/** How long a scan says it has just been waiting, once Kinema is back. */
+/** How long a scan says it has just been waiting, once Skrin is back. */
 const PICKED_UP_MS = 15_000;
 let pickedUp = false;
 let pickedUpTimer: ReturnType<typeof setTimeout> | null = null;
@@ -192,7 +192,7 @@ export async function parseBatchForLibrary(
 ): Promise<ParseResultPayload[]> {
   const payloads: ParseResultPayload[] = [];
   // A little at a time: a whole batch is most of a minute on a weak box, and a
-  // worker cannot be stopped when Kinema leaves the screen or a film opens.
+  // worker cannot be stopped when Skrin leaves the screen or a film opens.
   let done = 0;
   while (done < files.length) {
     await yieldToPlayback();
@@ -436,7 +436,7 @@ export async function runScanPipeline(): Promise<ScanOutcome> {
     // Needs attention as "Worth a look" (worthALook.ts). Usually nothing to
     // do. After pictures, when browsing has all it needs, and before looking
     // inside files and finding intros, which can take many minutes on a first
-    // scan; what a closed Kinema left unread is picked up by the next scan.
+    // scan; what a closed Skrin left unread is picked up by the next scan.
     await yieldToPlayback();
     setStatus({ stage: 'rereading', detail: '' });
     await runWorthALook(roots, parseBatchForLibrary).catch((e: unknown) =>

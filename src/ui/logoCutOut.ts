@@ -217,7 +217,7 @@ export function keepLight(pixels: Uint8ClampedArray, split: number): void {
   }
 }
 
-/** One look per logo, for as long as Kinema runs. */
+/** One look per logo, for as long as Skrin runs. */
 const looked = new Map<string, Promise<string | null>>();
 
 function load(src: string): Promise<HTMLImageElement> {
