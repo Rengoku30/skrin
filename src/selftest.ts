@@ -177,6 +177,10 @@ async function refetchTitle(titleId: number): Promise<number> {
 }
 
 const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
+  // The update button's two halves (updates.rs), for an old build updating to
+  // a test release (SKRIN_UPDATE_FEED): is there one, and press Update.
+  latestRelease: () => invoke('latest_release'),
+  installUpdate: () => invoke('install_update'),
   // A library built from nothing: a folder added as Settings adds it, and a
   // whole scan — so a plan on an empty copy checks the library side end to end:
   // `runScanPipeline` is the app's own scan → parse → match → details →

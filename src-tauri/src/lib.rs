@@ -335,7 +335,7 @@ pub fn run() {
         }));
     }
 
-    share_logins::register(places::register(engine::register(builder)))
+    updates::register(share_logins::register(places::register(engine::register(builder))))
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_http::init())
@@ -438,6 +438,8 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             updates::latest_release,
+            updates::install_update,
+            updates::restart_after_update,
             engine::mpv_started,
             engine::mpv_give_back,
             page_life::page_recovery,

@@ -1471,6 +1471,12 @@ const SCAN_ERRORS: string[] = (() => {
 /** `kinemaMockUpdate` pretends that version is out on GitHub. */
 const UPDATE = flag('kinemaMockUpdate');
 /**
+ * `kinemaMockUpdateInstall` (setup, deb, rpm, apk) makes that copy able to
+ * update itself; `kinemaMockUpdateFails` makes the press fail with that text.
+ */
+const UPDATE_INSTALL = flag('kinemaMockUpdateInstall');
+const UPDATE_FAILS = flag('kinemaMockUpdateFails');
+/**
  * `kinemaMockDetectSteps`, a JSON list of report steps, stands in for what the
  * scan's detection pass said — three TV folders with nothing new, say.
  */
@@ -1944,7 +1950,27 @@ const handlers: Record<string, Handler> = {
     return slow ? new Promise((resolve) => window.setTimeout(() => resolve(n), slow)) : n;
   },
   latest_release: () =>
-    UPDATE ? { version: UPDATE, url: 'https://github.com/basswaves/skrin/releases' } : null,
+    UPDATE
+      ? {
+          version: UPDATE,
+          url: 'https://github.com/basswaves/skrin/releases',
+          install: UPDATE_INSTALL || null,
+        }
+      : null,
+  // A 40 MB download in five steps, then what that kind of copy answers.
+  install_update: async () => {
+    const total = 40_000_000;
+    for (let i = 1; i <= 5; i++) {
+      await new Promise((r) => window.setTimeout(r, 60));
+      emitEvent('update-progress', { done: (total / 5) * i, total });
+    }
+    if (UPDATE_FAILS) throw UPDATE_FAILS;
+    const state = { setup: 'closing', deb: 'installed', rpm: 'installed', apk: 'opened' }[
+      UPDATE_INSTALL ?? ''
+    ];
+    return { state: state ?? 'opened' };
+  },
+  restart_after_update: () => null,
   list_titles_needing_detail: () => [],
   list_stale_titles: () => [],
   list_fallback_titles: () => [],

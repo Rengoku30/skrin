@@ -35,6 +35,9 @@ walkdir = "2.5.0"
 quick-xml = "0.42"
 tauri-plugin-dialog = "2"
 tauri-plugin-http = "2"
+# The update button checks a downloaded installer against the release's own
+# .sha256 (updates.rs). Already compiled in through other crates.
+sha2 = "0.10"
 # Pure Rust, MIT, no C library. The audio fingerprinting behind intro/credits
 # detection — and the reason a detector can live in this app at all rather than
 # being another installed tool. Decoding still needs ffmpeg (see ffmpeg.rs):

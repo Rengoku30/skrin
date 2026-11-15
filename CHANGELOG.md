@@ -5,6 +5,25 @@ Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semantic
 versioning](https://semver.org/), with the usual caveat that a `0.x` release
 makes no stability promises.
 
+## [Unreleased]
+
+### New
+
+- **Update with one press.** When a newer Skrin is out, Settings → Advanced
+  offers "Update to Skrin X". It downloads the new version from the GitHub
+  release, checks it against the release's checksum and opens the system's own
+  installer, which asks before anything changes: the setup on Windows (Skrin
+  closes so it can be replaced), the .deb or .rpm on Linux (asks for your
+  password, then "Restart Skrin"), the APK on Android (allow Skrin to install
+  apps the first time). Nothing is downloaded until you press it, and nothing
+  updates by itself. A copy that cannot update itself this way (the Windows
+  ZIP, the Linux folder download) keeps the download page.
+
+### Changed
+
+- **Skrin's own colours**: the orange of the icon replaces Kinema's red
+  throughout the app, and the icon and a white "Skrin" sit at the top left.
+
 ## [0.17.0] — 2026-11-14
 
 **Kinema is now Skrin Media Player.** Only the name and the icon change. Your

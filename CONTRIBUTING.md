@@ -117,7 +117,9 @@ fetches WebView2 only when it is missing. An installer is acceptable on one
 condition: uninstalling leaves nothing behind. The uninstaller runs
 `skrin.exe --uninstall-cleanup` (the same removal as Settings → Playback → Opening videos → Remove, only
 if the "video player" offer names this copy) and clears Windows' own leftovers
-for the app; it asks before deleting the library and settings. Test it in
+for the app; it asks before deleting the library and settings. The update
+button (Settings → Advanced) recognises an installed copy by the
+`uninstall.exe` beside the program, downloads this setup and starts it. Test it in
 Windows Sandbox with `scripts\sandbox-installer.ps1` — a clean Windows is the
 point, so do not copy runtime files into the sandbox. The winget manifest is
 written by `scripts/winget-manifest.ps1` and checked with `winget validate` on
@@ -690,6 +692,17 @@ reasoning is in [docs/DESIGN.md](docs/DESIGN.md) and [docs/HISTORY.md](docs/HIST
   `gradle/wrapper/gradle-wrapper.jar` (Gradle's own 59 KB starter, which
   every Android project keeps). It runs on the build machine and is never
   in the app.
+- **No automatic updates; one press to update.** Skrin asks GitHub once per
+  launch whether a newer version is out (switchable off in Settings →
+  Advanced) and says so. Nothing is downloaded or installed until the person
+  presses "Update to Skrin X": then the file of the kind this copy was
+  installed from (the Windows setup, the Linux .deb or .rpm, the Android APK)
+  is downloaded from the GitHub release, checked against the release's
+  `.sha256`, and handed to the system's own installer, which asks before
+  anything changes (`src-tauri/src/updates.rs`). Never silently, never on its
+  own, never in the background. A copy that cannot be updated safely this way
+  (the Windows ZIP, a tar.gz, a system that does not answer as expected) gets
+  the download page instead.
 - **Say what leaves the computer.** Settings → Privacy lists every service
   Skrin can contact, what it sends, when, and what stops it. Its words are in
   `src/trust/whatLeaves.json`, shared with the website. A change that makes

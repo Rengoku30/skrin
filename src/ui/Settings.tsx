@@ -33,6 +33,7 @@ import {
 import { openLink } from './links';
 import DuplicatesSection from './DuplicatesSection';
 import FocusButton from './FocusButton';
+import UpdateNotice from './UpdateNotice';
 import { FfmpegInstallButton, FfmpegInstallStatus, FfmpegLacks } from './FfmpegInstall';
 import { FFMPEG_DOWNLOAD_URL, FFMPEG_INSTALL_WORDS, ffmpegFoundWords, useFfmpegInstall } from './ffmpegInstallState';
 import { count, formatBytes } from './format';
@@ -1744,20 +1745,7 @@ export default function Settings({
                 <section className="settings-section">
                   <h2>Updates</h2>
                   {version && <p className="settings-intro">This is Skrin {version} (formerly Kinema).</p>}
-                  {update && (
-                    <div className="settings-update">
-                      <strong>Skrin {update.version} is available.</strong>
-                      <FocusButton
-                       
-                        className="btn-primary"
-                        onSelect={() =>
-                          void openLink(update.url)
-                        }
-                      >
-                        Open the download page ↗
-                      </FocusButton>
-                    </div>
-                  )}
+                  {update && <UpdateNotice update={update} />}
                   <ChoiceRow
                     label="Look for new versions"
                     choices={[
@@ -1769,7 +1757,7 @@ export default function Settings({
                       setCheckUpdates(v === 'on');
                       void setSetting(UPDATE_CHECK_KEY, v).catch((e) => setError(userError(e)));
                     }}
-                    note="When Skrin starts, it asks GitHub for the number of the latest version and says here if there is a newer one. Nothing is downloaded."
+                    note="When Skrin starts, it asks GitHub for the number of the latest version and says here if there is a newer one. Nothing is downloaded until you press Update."
                   />
                 </section>
 

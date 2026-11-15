@@ -123,9 +123,9 @@
     {
       "id": "github",
       "name": "GitHub (new versions)",
-      "hosts": ["api.github.com"],
-      "sends": "An ordinary request for the number of Skrin's latest release. Nothing about you or your library.",
-      "when": "Once each time Skrin starts.",
+      "hosts": ["api.github.com", "github.com", "release-assets.githubusercontent.com"],
+      "sends": "An ordinary request for the number of Skrin's latest release. When you press Update to Skrin, a download of that release's installer and its checksum, from GitHub's own file servers. Nothing about you or your library.",
+      "when": "Once each time Skrin starts; the download only when you press Update to Skrin.",
       "stop": "Look for new versions, in Settings, Advanced.",
       "section": "advanced",
       "state": "updates"

@@ -2538,6 +2538,18 @@ and ends mpv under that film.
 
 ## Linux, and building it from Windows
 
+### pkexec from an app started over SSH finds no password window
+
+Skrin's update button hands the package to `pkexec dnf|apt-get install`, and
+polkit asks the *session the process belongs to* for its password window. An
+app started from an SSH shell belongs to the SSH session, which has no
+graphical agent: pkexec gives up at once with exit 127 ("Error creating
+textual authentication agent … /dev/tty"), though the desktop's agent is
+running. A desktop launch (Plasma 6, GNOME) puts the app in a systemd user
+scope, outside any session, and polkit then uses the user's graphical
+session. **Do:** start test copies over SSH with `systemd-run --user --scope
+skrin …`; then KDE's "Authentication Required" window appears as for a person.
+
 ### A Windows path in a test is one file name on Linux
 
 `Path::new(r"C:\tools\ffmpeg\bin\ffmpeg.exe").parent()` is `C:\tools\ffmpeg\bin`

@@ -277,6 +277,12 @@ button {
   vertical-align: 0.125rem;
 }
 
+.settings-update-note {
+  margin: 0;
+  flex-basis: 100%;
+  opacity: 0.85;
+}
+
 .settings-update {
   display: flex;
   flex-wrap: wrap;

@@ -4626,6 +4626,30 @@ never the library, then removes the shortcuts an update leaves. On Linux the
 instead of installing both. Old copies find the new release because GitHub
 forwards a renamed repository's address, the API's included.
 
+## One press to update, still no automatic updates (2026-11-15)
+
+Testers asked for an update inside the app; until now the notice only opened
+the download page, and on Android and Linux that meant a browser, a file and
+an installer found by hand. "Automatic updates stay out" was kept by making
+the update one press, never a background job: Skrin still only asks GitHub
+for the latest version number at launch, and only "Update to Skrin X" in
+Settings → Advanced downloads anything.
+
+The press fetches the file of the kind the copy was installed from, so the
+system's own installer does the replacing and asks the person first: the
+Windows setup (an installed copy has the setup's `uninstall.exe` beside it;
+Skrin closes so the setup can replace it), the Linux .deb or .rpm when the
+system's package database says it owns the running program (`pkexec apt-get`
+or `pkexec dnf`, which ask for the password), the Android APK (Android's
+installer, after the one-time "install unknown apps" permission). Each is
+checked against the release's own `.sha256` before it is handed over; a
+mismatch deletes it. Anything Skrin cannot tell safely — the ZIP, a tar.gz,
+no `pkexec`, another package manager — keeps the download page, by the
+stable-base rule: fail safe. A test release can be named only on this
+machine's own loopback address (`SKRIN_UPDATE_FEED`, Android's
+`debug.skrin.update_feed`), so the proof runs an old build against a local
+copy of a release without touching GitHub.
+
 ## Open items
 
 They are in [ROADMAP.md](ROADMAP.md). This document is for what was done and
