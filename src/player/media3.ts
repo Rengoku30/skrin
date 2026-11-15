@@ -119,6 +119,8 @@ export interface State {
   path: string | null;
   position: number | null;
   duration: number | null;
+  /** How far Media3 has loaded (its buffered position, seconds); absent before 0.18. */
+  buffered?: number | null;
   paused: boolean;
   ended: boolean;
   /** The film's picture, once Media3 has chosen its video track. */

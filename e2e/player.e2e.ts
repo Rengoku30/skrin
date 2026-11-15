@@ -1074,3 +1074,58 @@ test('a show’s chosen version carries to its next episode', async ({ page }) =
   await press(page, 'n');
   await expect.poll(async () => (await mpv(page)).path).toContain('S01E02.720p');
 });
+
+test('the seek bar shows what is loaded ahead, steadily, and only what the player says', async ({
+  page,
+}) => {
+  await play(page, 'film');
+  const bar = page.locator('input.player-seek');
+  const read = () =>
+    bar.evaluate((el) => ({
+      played: parseFloat((el as HTMLElement).style.getPropertyValue('--played')),
+      loaded: parseFloat((el as HTMLElement).style.getPropertyValue('--loaded')),
+      said: el.getAttribute('data-loaded'),
+      duration: (window as unknown as { __fakeMpv: { duration: number } }).__fakeMpv.duration,
+      position: (window as unknown as { __fakeMpv: FakeMpv }).__fakeMpv.position,
+    }));
+
+  await press(page, 'ArrowDown');
+  await expect(osdFocused(page)).toBeAttached();
+  // A minute ahead (the fake player's demuxer cache), drawn past the play head.
+  await expect.poll(async () => (await read()).said).not.toBeNull();
+  const first = await read();
+  expect(first.loaded).toBeGreaterThan(first.played);
+  expect(first.loaded).toBeCloseTo(((first.position + 60) / first.duration) * 100, 0);
+
+  // A local file that loads at once: the band never blinks off between reads.
+  for (let i = 0; i < 15; i++) {
+    const r = await read();
+    expect(r.said).not.toBeNull();
+    expect(r.loaded).toBeGreaterThan(r.played);
+    await pause(page, 200, 'sampling across several one-second reads');
+  }
+
+  // Loaded to the end: the band reaches the end of the bar.
+  await page.evaluate(() => {
+    (window as unknown as { __fakeMpv: { cacheAhead: number } }).__fakeMpv.cacheAhead = 1e6;
+  });
+  await expect.poll(async () => (await read()).loaded).toBe(100);
+});
+
+test('a player that says nothing about loading draws no loaded band', async ({ page }) => {
+  await play(page, 'film', async (p) => {
+    await p.evaluate(() => {
+      (window as unknown as { __fakeMpv: { cacheAhead: number | null } }).__fakeMpv.cacheAhead = null;
+    });
+  });
+  await press(page, 'ArrowDown');
+  await expect(osdFocused(page)).toBeAttached();
+  await pause(page, 2500, 'two reads of the loaded part');
+  const r = await page.locator('input.player-seek').evaluate((el) => ({
+    played: (el as HTMLElement).style.getPropertyValue('--played'),
+    loaded: (el as HTMLElement).style.getPropertyValue('--loaded'),
+    said: el.getAttribute('data-loaded'),
+  }));
+  expect(r.said).toBeNull();
+  expect(r.loaded).toBe(r.played);
+});

@@ -4650,6 +4650,19 @@ machine's own loopback address (`SKRIN_UPDATE_FEED`, Android's
 `debug.skrin.update_feed`), so the proof runs an old build against a local
 copy of a release without touching GitHub.
 
+## The seek bar shows what is loaded (2026-11-15)
+
+On a network share a seek can wait for data, and nothing showed how much was
+already in hand. The seek bar now draws the part loaded ahead of the play
+head, lighter than the played part: mpv's demuxer cache on a computer
+(`demuxer-cache-duration`), Media3's buffered position on Android. It is read
+once a second while the controls show, not observed: an observed property
+only registers when mpv starts, and the band is only needed while it can be
+seen. A failed read keeps the last answer, so a local file that loads at once
+shows one steady band that moves with the film; a player that reports nothing
+draws none. The bar is drawn by hand (`::-webkit-slider-*`) for this; the
+system's own slider cannot show a second part.
+
 ## Open items
 
 They are in [ROADMAP.md](ROADMAP.md). This document is for what was done and

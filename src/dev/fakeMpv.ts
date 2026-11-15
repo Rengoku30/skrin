@@ -40,6 +40,11 @@ export interface FakeMpvState {
    * through `__fakeMpvWait`.
    */
   cacheBuffering: number | null;
+  /**
+   * Seconds loaded ahead of the play head (`demuxer-cache-duration`), for the
+   * seek bar's loaded band; null answers as a player that says nothing.
+   */
+  cacheAhead: number | null;
   /** Every command received, newest last, for assertions. */
   commands: Array<{ name: string; args: unknown[] }>;
   volume: number;
@@ -94,6 +99,7 @@ const state: FakeMpvState = {
   paused: false,
   eof: false,
   cacheBuffering: null,
+  cacheAhead: 60,
   speed: 1,
   loadDelayMs: 300,
   commands: [],
@@ -319,6 +325,9 @@ export function getProperty(name: string): unknown {
       return state.cacheBuffering !== null;
     case 'cache-buffering-state':
       return state.cacheBuffering ?? 100;
+    case 'demuxer-cache-duration':
+      if (state.path === null || state.cacheAhead === null) throw new Error('property unavailable');
+      return state.cacheAhead;
     case 'sub-visibility':
       return state.subVisible;
     case 'volume':

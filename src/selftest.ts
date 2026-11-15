@@ -27,6 +27,7 @@ import {
 } from '@tauri-apps/api/window';
 import {
   addSubtitle,
+  bufferedAhead,
   chooseTrack,
   listenMpvEvents,
   mpvCommand,
@@ -181,6 +182,8 @@ const CALLABLE: Record<string, (...args: never[]) => Promise<unknown>> = {
   // a test release (SKRIN_UPDATE_FEED): is there one, and press Update.
   latestRelease: () => invoke('latest_release'),
   installUpdate: () => invoke('install_update'),
+  // How far the film is loaded ahead of the play head (the seek bar's band).
+  bufferedAhead,
   // A library built from nothing: a folder added as Settings adds it, and a
   // whole scan — so a plan on an empty copy checks the library side end to end:
   // `runScanPipeline` is the app's own scan → parse → match → details →

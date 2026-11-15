@@ -18,6 +18,9 @@ makes no stability promises.
   apps the first time). Nothing is downloaded until you press it, and nothing
   updates by itself. A copy that cannot update itself this way (the Windows
   ZIP, the Linux folder download) keeps the download page.
+- **The seek bar shows how much of the film is loaded** ahead of the play
+  head, lighter than the part already played: mostly seen on a network share,
+  where it shows how far a seek can go without waiting.
 
 ### Changed
 

@@ -3160,8 +3160,37 @@ button.cast-member {
 
 .player-seek {
   flex: 1;
-  accent-color: var(--accent);
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Drawn by hand rather than by the system, so the part loaded ahead of the
+   play head can show (round 9; buffered.ts): played in the accent, loaded
+   lighter, the rest faint. --played and --loaded come from PlayerControls. */
+.player-seek::-webkit-slider-runnable-track {
+  height: 0.3rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent) 0 var(--played, 0%),
+    rgba(255, 255, 255, 0.5) var(--played, 0%) var(--loaded, 0%),
+    rgba(255, 255, 255, 0.2) var(--loaded, 0%) 100%
+  );
+}
+
+.player-seek::-webkit-slider-thumb {
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: -0.325rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* The focusable around the slider: where the ring goes when a remote is on it. */

@@ -60,6 +60,7 @@ import { useSubDelay } from './useSubDelay';
 import { useSoundLevel } from './useSoundLevel';
 import { useUpNext } from './useUpNext';
 import { useBuffering } from './buffering';
+import { useBufferedEnd } from './buffered';
 import { useVolume } from './useVolume';
 import { VOLUME_STEP, wheelVolumeSteps } from './volume';
 import { nameOf, noteFirstFrame, targetFor } from '../library/opened';
@@ -419,6 +420,8 @@ export default function Player({ target, onExit, onPlayTarget }: Props) {
 
   const endsAt = endsAtLabel(timePos, duration, now);
   const controlsShown = osdVisible || showTracks || osdFocus;
+  /** How far the film is loaded, for the seek bar while it shows (buffered.ts). */
+  const loadedTo = useBufferedEnd(controlsShown, target.path, timePos, duration);
   const subTracks = tracks.filter((t) => t.type === 'sub');
   const audioTracks = tracks.filter((t) => t.type === 'audio');
 
@@ -557,6 +560,7 @@ export default function Player({ target, onExit, onPlayTarget }: Props) {
       <PlayerControls
         visible={controlsShown}
         timePos={timePos}
+        loadedTo={loadedTo}
         duration={duration}
         paused={paused}
         steps={steps}

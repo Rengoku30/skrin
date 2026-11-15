@@ -3,7 +3,7 @@
  * under them the buttons. It draws and reports; what each control does is the
  * player's (Player.tsx), passed in.
  */
-import { memo } from 'react';
+import { memo, type CSSProperties } from 'react';
 import FocusButton from '../ui/FocusButton';
 import FocusGroup from '../ui/FocusGroup';
 import { formatTime } from '../ui/format';
@@ -32,6 +32,8 @@ interface Props {
    */
   visible: boolean;
   timePos: number | null;
+  /** Where the part loaded ahead of the play head ends (seconds), as the player reports it. */
+  loadedTo: number | null;
   duration: number | null;
   paused: boolean;
   /**
@@ -72,6 +74,7 @@ interface Props {
 
 function PlayerControls({
   timePos,
+  loadedTo,
   duration,
   paused,
   steps,
@@ -100,6 +103,8 @@ function PlayerControls({
   visible: _visible,
 }: Props) {
   const progress = duration && timePos !== null ? (timePos / duration) * 100 : 0;
+  // The loaded band runs from the play head to here (ui.css, .player-seek).
+  const loaded = duration && loadedTo !== null ? Math.min(100, (loadedTo / duration) * 100) : progress;
 
   return (
     <div className="player-controls">
@@ -118,6 +123,10 @@ function PlayerControls({
             max={100}
             step={0.05}
             value={progress}
+            style={
+              { '--played': `${progress}%`, '--loaded': `${Math.max(progress, loaded)}%` } as CSSProperties
+            }
+            data-loaded={loadedTo === null ? undefined : Math.round(loaded * 10) / 10}
             tabIndex={-1}
             onMouseDown={onDragStart}
             onChange={(e) => {

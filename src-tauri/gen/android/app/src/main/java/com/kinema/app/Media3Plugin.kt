@@ -1214,6 +1214,8 @@ class Media3Plugin(private val activity: Activity) : Plugin(activity) {
         put("path", path ?: JSONObject.NULL)
         put("position", p?.let { it.currentPosition / 1000.0 } ?: JSONObject.NULL)
         put("duration", p?.duration?.takeIf { it > 0 }?.let { it / 1000.0 } ?: JSONObject.NULL)
+        // The seek bar's loaded part (bufferedAhead in engine.ts).
+        put("buffered", p?.let { it.bufferedPosition / 1000.0 } ?: JSONObject.NULL)
         put("paused", p?.playWhenReady?.not() ?: true)
         put("ended", p?.playbackState == Player.STATE_ENDED)
         put("video", video ?: JSONObject.NULL)

@@ -507,6 +507,20 @@ export async function seekBy(seconds: number): Promise<void> {
   await command('seek', [seconds, 'relative']);
 }
 
+/**
+ * How many seconds of the film are loaded ahead of the play head, as the
+ * player reports it: mpv's demuxer cache (`demuxer-cache-duration`, a scalar
+ * read), Media3's buffered position. Null when the player says nothing.
+ */
+export async function bufferedAhead(): Promise<number | null> {
+  if (isMedia3()) {
+    const { position, buffered } = await media3.state();
+    return position !== null && buffered != null ? Math.max(0, buffered - position) : null;
+  }
+  const ahead = await readProperty<number>('demuxer-cache-duration', 'double');
+  return typeof ahead === 'number' && Number.isFinite(ahead) ? Math.max(0, ahead) : null;
+}
+
 /** The file that is open, or null. */
 export async function openPath(): Promise<string | null> {
   if (isMedia3()) return (await media3.state()).path;
