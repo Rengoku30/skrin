@@ -83,7 +83,7 @@ export interface OutputFacts {
 
 const res = (s: { width: number; height: number }) => `${s.width}×${s.height}`;
 
-/** What a Linux graphics driver needs to offer the player HDR (README, "HDR on Linux"). */
+/** What a Linux graphics driver needs to offer the player HDR (docs/INSTALL.md, "HDR on Linux"). */
 const LINUX_HDR_DRIVERS =
   'NVIDIA needs driver 595 or newer, which supports GeForce RTX 20 and GTX 16 cards and later — older cards cannot show HDR on Linux. AMD and Intel need Mesa 25.1 or newer.';
 

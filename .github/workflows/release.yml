@@ -511,10 +511,11 @@ jobs:
             `skrin-android.apk`, copy it to the device and
             open it (Android asks once to allow installs from that source).
             It is an early version, tried on one TV box and the emulator; a
-            phone has not been tried. See the README for what has been tested
-            and what is still missing. Check the download with
-            `sha256sum -c skrin-android.apk.sha256`; the
-            certificate it is signed with is named in the README.
+            phone has not been tried. [Platform support](https://github.com/basswaves/skrin/blob/master/docs/PLATFORMS.md#android-tv-early-version)
+            says what has been tested and what is still missing. Check the
+            download with `sha256sum -c skrin-android.apk.sha256`; the
+            certificate it is signed with is named in
+            [Installing Skrin](https://github.com/basswaves/skrin/blob/master/docs/INSTALL.md#android-tv).
 
             ## First run
 
@@ -530,6 +531,6 @@ jobs:
             you may replace; on Linux the system's libmpv is used; Android uses
             Google's Media3 (Apache-2.0) — see [NOTICE.md](NOTICE.md).
 
-            Something not working, or it works on a device the README does not
-            list? Say so: [bug report](https://github.com/basswaves/skrin/issues/new?template=bug_report.yml)
+            Something not working, or it works on a device Platform support
+            does not list? Say so: [bug report](https://github.com/basswaves/skrin/issues/new?template=bug_report.yml)
             or [device report](https://github.com/basswaves/skrin/issues/new?template=device_report.yml).

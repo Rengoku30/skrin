@@ -1,13 +1,19 @@
 # Screenshots
 
-Referenced from the top-level [README](../../README.md).
+The first four are the top-level [README](../../README.md)'s 2×2 grid; `stats`
+is also in [What Skrin does](../FEATURES.md), and `settings` in
+[Setting Skrin up](../SETUP.md).
+
+**Wanted (2026-11-15): all five again in Skrin's orange look.** The ones here
+are from Kinema (red, old name); the README marks the grid as placeholders
+until they are replaced. Keep the same file names and the grid needs no edit.
 
 | File | What it shows |
 |---|---|
-| `home.jpg` | The home screen — hero backdrop, a notice, and the rails beneath it |
-| `detail.jpg` | A movie's detail page, with the cast row |
-| `player.jpg` | The player controls over a paused file |
-| `stats.png` | The playback statistics panel (`i` while watching) |
+| `home.jpg` | The home screen — hero backdrop and the rails beneath it, with "Skrin" at the top left |
+| `detail.jpg` | A 4K HDR film's detail page: badges under the buttons, scores, the cast row |
+| `player.jpg` | The player controls over a paused film, with the audio tracks open |
+| `stats.png` | The playback details panel (`i` while watching) |
 | `settings.png` | The Settings section list and search box, cut from a fullscreen shot |
 
 Take them in fullscreen, with no viewing history, playlists or device names on

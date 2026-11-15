@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/basswaves/skrin/security/advisories/new
     about: Anything exploitable goes here, privately, not in a public issue. See SECURITY.md.
   - name: Something not working? Read this first
-    url: https://github.com/basswaves/skrin#when-something-goes-wrong
+    url: https://github.com/basswaves/skrin/blob/master/docs/TROUBLESHOOTING.md
     about: Where the logs are (including Android), and what to put in a report.

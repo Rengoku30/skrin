@@ -75,7 +75,7 @@ export function cacheOptions(memoryBytes: number): Record<string, string> {
  *
  * Init options, since the renderer reads them as it starts — after it, they
  * would apply from the next launch. Both have been in mpv since well before
- * 0.40, the oldest the README supports. Nothing here depends on a GPU brand:
+ * 0.40, the oldest docs/INSTALL.md supports. Nothing here depends on a GPU brand:
  * the cache holds whatever the driver produced.
  */
 export function shaderCacheOptions(dir: string | undefined): Record<string, string> {

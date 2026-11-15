@@ -75,6 +75,12 @@ Then:
 npm run tauri dev
 ```
 
+To build the portable app and put a shortcut on the desktop:
+
+```bash
+npm run app:build
+```
+
 `ffmpeg` on `PATH` is optional; without it the app's own intro/credits detection
 and the reading of each file's picture and sound format are skipped, and
 everything else works.

@@ -214,7 +214,7 @@ in the Linux player as it does on Windows.
 engine (Media3) for Dolby Vision and passthrough on TV boxes: the interface,
 the library, network shares, subtitles and playing a film work, tried on one TV
 box and the emulator. What is missing and untested is listed in the
-[README](../README.md#android-tv-early-version).
+[Platform support](PLATFORMS.md#android-tv-early-version).
 
 **macOS** is planned for later, once the Windows, Linux and Android work in
 hand is done; a port is welcome sooner. What is known so far: the interface
@@ -223,7 +223,7 @@ Windows needs a trial first (Linux's own-window mode is the fallback); macOS
 cannot pass TrueHD or DTS-HD to a receiver, so those would be decoded and
 said so; the first builds would be unsigned, which macOS only lets open after one
 step the first time (to be explained with the build). See
-[Platform support](../README.md#platform-support).
+[Platform support](PLATFORMS.md).
 
 ---
 
