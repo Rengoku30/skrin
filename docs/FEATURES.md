@@ -92,7 +92,7 @@ and sound right without it becoming a project:
 
 ## What it does
 
-![A 4K Dolby Vision movie's detail page: poster, description, scores, badges for the picture, sound and file, and a row of cast portraits](images/detail.jpg)
+![A 4K HDR film's detail page: poster, description, scores, badges for the picture, sound and file, and a row of cast portraits](images/detail.jpg)
 
 Detail pages carry the cast, the description and — for a series — every season
 and episode, opening on the season you are in, with progress on the ones you
@@ -101,7 +101,7 @@ series, what the season on screen holds, and which episodes differ — and
 beside the year are its age rating and its IMDb, Rotten Tomatoes and TMDB
 scores. Posters everywhere show what you have watched.
 
-![The player's controls: seek bar, the transport in the middle, audio and subtitles and volume at the right, with the list of audio tracks open, each led by its language code](images/player.jpg)
+![The player's controls: the seek bar, the transport in the middle, chapters, audio and subtitles and volume at the right](images/player.jpg)
 
 A remote works the way it does on any streaming app: **OK** pauses, **←/→**
 seek (hold to go faster), and **↑/↓** bring up the controls — the seek bar,

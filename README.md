@@ -25,13 +25,15 @@
   <a href="https://skrin.org/">skrin.org</a>
 </p>
 
-<!-- SCREENSHOT PLACEHOLDERS: the owner replaces these four with new shots in
-     Skrin's orange look (list in docs/images/README.md). Until then they show
-     the last Kinema-era pictures. -->
-| | |
-|---|---|
-| ![Home: a full-width backdrop for a title from the library, with rails of posters beneath it](docs/images/home.jpg) | ![A 4K Dolby Vision film's page: poster, description, scores, and badges for the picture, sound and file](docs/images/detail.jpg) |
-| ![The player's controls, with the list of audio tracks open](docs/images/player.jpg) | ![The playback details panel: resolution, codec, cadence, scaling and colour](docs/images/stats.png) |
+<!-- Three wide shots (docs/images/README.md). A fourth wide one (the player
+     with the playback details panel open) could make this a 2x2 grid. -->
+<p align="center">
+  <img src="docs/images/home.jpg" width="100%" alt="Home: a full-width backdrop for a title from the library, with rails of posters beneath it">
+</p>
+<p align="center">
+  <img src="docs/images/detail.jpg" width="49%" alt="A 4K HDR film's page: poster, description, scores, and badges for the picture, sound and file">
+  <img src="docs/images/player.jpg" width="49%" alt="The player: the film's title and end time at the top, the seek bar and controls beneath the picture">
+</p>
 
 *Skrin was called Kinema until version 0.17.0. Installing Skrin over Kinema
 keeps your library and settings.*
@@ -46,6 +48,9 @@ keeps your library and settings.*
   with what it gives and what it costs, and each skippable.
 - **Press `i` and it shows its working.** The display's real refresh rate, the
   frame cadence, which scaler ran and why, and the colour pipeline end to end.
+
+  <img src="docs/images/stats.png" width="300" alt="The playback details panel: what the screen can show, the source, the display and the cadence">
+
 - **Nothing invented.** No machine-learning upscaling, no frame interpolation,
   and no quality presets: what is in the film is what is shown.
 - **Plays through mpv** on Windows and Linux, and through Android's own player

@@ -1,18 +1,23 @@
 # Screenshots
 
-The first four are the top-level [README](../../README.md)'s 2×2 grid; `stats`
-is also in [What Skrin does](../FEATURES.md), and `settings` in
-[Setting Skrin up](../SETUP.md).
+The top of the [README](../../README.md) shows `home` full width with `detail`
+and `player` side by side beneath it; `stats` sits small beside the README's
+"Press `i`" point and in [What Skrin does](../FEATURES.md); `settings` is in
+[Setting Skrin up](../SETUP.md). The three at the top must be wide (landscape)
+so their rows line up; a tall picture there stretches its row.
 
-**Wanted (2026-11-15): all five again in Skrin's orange look.** The ones here
-are from Kinema (red, old name); the README marks the grid as placeholders
-until they are replaced. Keep the same file names and the grid needs no edit.
+`home`, `detail` and `player` were retaken in Skrin's orange look on
+2026-11-15 (fullscreen PNGs at 2559 × 1599, saved here as 2000 × 1250 JPEG at
+quality 86); `stats` and `settings` are older but show nothing the colour
+change touched. Keep the same file names and the README needs no edit. A wide
+shot of the player with the playback details panel open would let the top
+become an even 2×2 grid.
 
 | File | What it shows |
 |---|---|
 | `home.jpg` | The home screen — hero backdrop and the rails beneath it, with "Skrin" at the top left |
 | `detail.jpg` | A 4K HDR film's detail page: badges under the buttons, scores, the cast row |
-| `player.jpg` | The player controls over a paused film, with the audio tracks open |
+| `player.jpg` | The player controls over a paused film |
 | `stats.png` | The playback details panel (`i` while watching) |
 | `settings.png` | The Settings section list and search box, cut from a fullscreen shot |
 
