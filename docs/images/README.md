@@ -28,7 +28,8 @@ release name, so the current picture has those names painted out. `stats` is
 the panel cut out of a player shot. The website uses the same pictures, smaller,
 as `site/img/*.webp`, and `og.jpg` (1200 × 630) is the top of `home`. The site's
 `settings.webp` is a different shot: Picture & sound → Screen, beside the text
-about setting the screen up.
+about setting the screen up. It still says "Kinema" in its text (2026-11-15):
+retake it, 1200 × 843.
 
 ## Choosing the film at the top of Home
 
