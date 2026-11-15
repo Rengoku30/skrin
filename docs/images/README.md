@@ -25,6 +25,17 @@ as `site/img/*.webp`, and `og.jpg` (1200 × 630) is the top of `home`. The site'
 `settings.webp` is a different shot: Picture & sound → Screen, beside the text
 about setting the screen up.
 
+## Choosing the film at the top of Home
+
+Home's top film is the day's pick, which can take months to reach a given film.
+For a screenshot, name the film yourself: make a text file called
+`home-top.txt` in Skrin's data folder (`%APPDATA%\com.kinema.app\` on Windows,
+`~/.local/share/com.kinema.app/` on Linux; Settings → Advanced → Developer
+tools → Open log folder opens the `logs` folder inside it), write the film's
+name on the first line — `A Film` or, when two share a name, `A Film (2024)` —
+and open Skrin. Capitals and punctuation do not matter. Delete the file
+afterwards and the day's pick is back. A name that matches nothing is ignored.
+
 Ordinary Windows capture — `Win`+`Shift`+`S` or PrintScreen — picks these up
 fine, video included. If the video area comes out black, check where you are in
 the file rather than assuming the capture failed: a still taken during an

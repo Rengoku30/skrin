@@ -2558,6 +2558,8 @@ const handlers: Record<string, Handler> = {
   set_behind: () => null,
   mpv_started: () => false,
   mpv_give_back: () => fakeMpv.destroy(),
+  // A test sets `kinemaMockHomeTop` to stand in for home-top.txt (hero.ts).
+  home_top: () => localStorage.getItem('kinemaMockHomeTop'),
   // A test sets `kinemaMockPageEnded` to play a page whose process ended.
   page_recovery: () => {
     const why = localStorage.getItem('kinemaMockPageEnded');

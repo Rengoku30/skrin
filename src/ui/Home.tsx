@@ -5,7 +5,7 @@
  * list — an empty genre produces no rail at all, so a small library looks
  * deliberate instead of full of empty shelves.
  */
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Art from './Art';
 import { drawnStyle } from './drawnColour';
 import Rail from './Rail';
@@ -24,7 +24,7 @@ import { useFocusGroup, useNavGroup } from './focusGroups';
 import { count } from './format';
 import type { ContinueItem } from '../player/api';
 import { parseGenres, type Title } from './api';
-import { pickHero } from './hero';
+import { chosenHero, pickHero } from './hero';
 import { useScanStatus } from '../library/pipeline';
 import { scanWords } from '../library/scanWords';
 import { useMyList } from '../library/myList';
@@ -286,9 +286,18 @@ function HomeRows({
   // The moment Home opened, fixed for its life: the hero is the day's pick,
   // not something that changes under the remote while you browse.
   const [openedAt] = useState(() => Date.now());
+  // A film named in home-top.txt, for screenshots (hero.ts); read once.
+  const [chosen, setChosen] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    void chosenHero().then((name) => live && setChosen(name));
+    return () => {
+      live = false;
+    };
+  }, []);
   const hero = useMemo(
-    () => pickHero(titles, resumable[0]?.title_id ?? null, openedAt),
-    [titles, resumable, openedAt]
+    () => pickHero(titles, resumable[0]?.title_id ?? null, openedAt, chosen),
+    [titles, resumable, openedAt, chosen]
   );
 
   // Not sliced here: `Rail` applies the cap, so there is one number governing

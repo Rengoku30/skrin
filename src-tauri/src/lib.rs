@@ -44,6 +44,7 @@ mod local_art;
 mod netshare;
 mod nfo;
 mod overlay;
+mod home_top;
 mod page_life;
 mod people;
 mod placing;
@@ -440,6 +441,7 @@ pub fn run() {
             engine::mpv_started,
             engine::mpv_give_back,
             page_life::page_recovery,
+            home_top::home_top,
             capabilities::capabilities,
             places::list_folders,
             places::folder_places,
