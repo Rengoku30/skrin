@@ -40,8 +40,8 @@
 .page code{font-family:var(--mono);color:#fff;overflow-wrap:anywhere}
 .nw{white-space:nowrap}
 .lead{font-size:1.12rem;color:#cfcfd8!important}
-.answer{max-width:46rem;margin:26px 0 8px;padding:20px 22px 18px;background:linear-gradient(180deg,rgba(229,9,20,.13),rgba(229,9,20,.03) 70%),var(--card);border:1px solid rgba(229,9,20,.45);border-radius:var(--r)}
-.answer h2{margin:0 0 10px;font-size:1rem;font:600 .78rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red-text)}
+.answer{max-width:46rem;margin:26px 0 8px;padding:20px 22px 18px;background:linear-gradient(180deg,rgba(255,90,0,.13),rgba(255,90,0,.03) 70%),var(--card);border:1px solid rgba(255,90,0,.45);border-radius:var(--r)}
+.answer h2{margin:0 0 10px;font-size:1rem;font:600 .78rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
 .answer ol{margin:0;color:#e4e4ea}
 .answer li{margin:0 0 4px}
 .toc{max-width:46rem;margin:22px 0 0;padding:14px 18px;border:1px solid var(--line);border-radius:12px;background:var(--bg-2)}
@@ -70,34 +70,34 @@
 .ill text{font-family:var(--sans)}
 .ill .bx{fill:var(--card-2);stroke:var(--line-2);stroke-width:2}
 .ill .win{fill:var(--bg-2);stroke:var(--line-2);stroke-width:2}
-.ill .hi{fill:rgba(229,9,20,.14);stroke:var(--red);stroke-width:2}
+.ill .hi{fill:rgba(255,90,0,.14);stroke:var(--accent);stroke-width:2}
 .ill .ok{fill:rgba(82,201,150,.14);stroke:var(--green);stroke-width:2}
 .ill .ico{fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
 .ill .icf{fill:none;stroke:var(--dim);stroke-width:1.5}
-.ill .red{fill:var(--red)}
-.ill .redl{fill:none;stroke:var(--red-text);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ill .red{fill:var(--accent)}
+.ill .redl{fill:none;stroke:var(--accent-text);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .ill .ln{fill:none;stroke:var(--line-2);stroke-width:2}
 .ill .ar{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .ill .t{fill:var(--text);font-size:19px;font-weight:700}
 .ill .tm{fill:var(--text);font-size:17px}
 .ill .m{fill:var(--muted);font-size:16px}
 .ill .d{fill:var(--dim);font-size:14px}
-.ill .r{fill:var(--red-text);font-size:16px;font-weight:700}
+.ill .r{fill:var(--accent-text);font-size:16px;font-weight:700}
 .ill .g{fill:var(--green);font-size:16px;font-weight:700}
 .ill .mo{font-family:var(--mono)}
 .ill .seg1{fill:#5a5a66}.ill .seg2{fill:#3f3f4a}.ill .seg3{fill:#71717e}.ill .seg4{fill:#2e2e37}
 .ill .segt{fill:#fff;font-size:15px;font-weight:700}
 .ill .bl{fill:#4a4a55}
-.ill .blm{fill:var(--red)}
+.ill .blm{fill:var(--accent)}
 .ill .chk{fill:var(--card-2);stroke:var(--muted);stroke-width:1.6}
-.ill .chk.on{fill:var(--red);stroke:var(--red)}
+.ill .chk.on{fill:var(--accent);stroke:var(--accent)}
 .ill .tick{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .only-narrow{display:none}
 @media (max-width:620px){.only-wide{display:none}.only-narrow{display:block}.fig.narrow-max{max-width:24rem}}
 .steps{list-style:none;padding:0!important;margin:20px 0 0!important;max-width:none!important;display:grid;gap:26px;counter-reset:s}
 .steps>li{counter-increment:s;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,25rem);gap:20px 32px;align-items:start;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0!important}
 .steps>li>div>h3{margin:0 0 8px;font-size:1.2rem;display:flex;gap:12px;align-items:center}
-.steps>li>div>h3::before{content:counter(s);flex:0 0 32px;height:32px;border-radius:9px;background:rgba(229,9,20,.14);border:1px solid rgba(229,9,20,.5);display:grid;place-items:center;font:700 .85rem var(--mono);color:var(--red-text)}
+.steps>li>div>h3::before{content:counter(s);flex:0 0 32px;height:32px;border-radius:9px;background:rgba(255,90,0,.14);border:1px solid rgba(255,90,0,.5);display:grid;place-items:center;font:700 .85rem var(--mono);color:var(--accent-text)}
 .steps p{margin:0 0 10px}
 .steps .fig{margin:0}
 @media (max-width:860px){.steps>li{grid-template-columns:1fr;padding:18px}.steps .fig{max-width:28rem}}
@@ -109,7 +109,7 @@
 .deep{max-width:52rem;margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2)}
 .deep>summary{cursor:pointer;list-style:none;padding:18px 48px 18px 22px;font-weight:700;font-size:1.08rem;position:relative}
 .deep>summary::-webkit-details-marker{display:none}
-.deep>summary::after{content:"+";position:absolute;right:20px;top:12px;font:300 1.9rem/1 var(--sans);color:var(--red-text);transition:transform .2s}
+.deep>summary::after{content:"+";position:absolute;right:20px;top:12px;font:300 1.9rem/1 var(--sans);color:var(--accent-text);transition:transform .2s}
 .deep[open]>summary::after{transform:rotate(45deg)}
 .deep>div{padding:0 22px 20px}
 .deep h3:first-child{margin-top:4px}
@@ -178,10 +178,10 @@
 
 <svg class="ill" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
   <symbol id="ic-disc" viewBox="0 0 60 60"><circle style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" cx="30" cy="30" r="25"/><circle style="fill:none;stroke:var(--dim);stroke-width:1.5" cx="30" cy="30" r="16"/><circle style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" cx="30" cy="30" r="6"/></symbol>
-  <symbol id="ic-app" viewBox="0 0 60 60"><rect style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" x="5" y="9" width="50" height="42" rx="5"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M5 19H55"/><rect style="fill:var(--red)" x="11" y="25" width="8" height="5" rx="1"/><path style="fill:none;stroke:var(--dim);stroke-width:1.5" d="M23 27.5H48M23 35.5H44M23 43.5H40"/><rect style="fill:var(--red)" x="11" y="33" width="8" height="5" rx="1" opacity=".45"/></symbol>
-  <symbol id="ic-file" viewBox="0 0 60 60"><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M13 5H37L48 16V55H13Z"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M37 5V16H48"/><path style="fill:none;stroke:var(--red-text);stroke-width:2.5;stroke-linecap:round" d="M20 30H41M20 38H41M20 46H33"/></symbol>
+  <symbol id="ic-app" viewBox="0 0 60 60"><rect style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" x="5" y="9" width="50" height="42" rx="5"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M5 19H55"/><rect style="fill:var(--accent)" x="11" y="25" width="8" height="5" rx="1"/><path style="fill:none;stroke:var(--dim);stroke-width:1.5" d="M23 27.5H48M23 35.5H44M23 43.5H40"/><rect style="fill:var(--accent)" x="11" y="33" width="8" height="5" rx="1" opacity=".45"/></symbol>
+  <symbol id="ic-file" viewBox="0 0 60 60"><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M13 5H37L48 16V55H13Z"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M37 5V16H48"/><path style="fill:none;stroke:var(--accent-text);stroke-width:2.5;stroke-linecap:round" d="M20 30H41M20 38H41M20 46H33"/></symbol>
   <symbol id="ic-folder" viewBox="0 0 60 60"><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M5 15H23L28 20H55V49H5Z"/><path style="fill:none;stroke:var(--dim);stroke-width:1.5" d="M5 26H55"/></symbol>
-  <symbol id="ic-tv" viewBox="0 0 60 60"><rect style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" x="3" y="9" width="54" height="35" rx="4"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M21 53H39M30 44V53"/><path style="fill:var(--red)" d="M25 18L39 26.5L25 35Z"/></symbol>
+  <symbol id="ic-tv" viewBox="0 0 60 60"><rect style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" x="3" y="9" width="54" height="35" rx="4"/><path style="fill:none;stroke:var(--text);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round" d="M21 53H39M30 44V53"/><path style="fill:var(--accent)" d="M25 18L39 26.5L25 35Z"/></symbol>
 </svg>
 
 <header class="top">

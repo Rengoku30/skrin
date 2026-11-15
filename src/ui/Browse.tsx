@@ -1074,7 +1074,10 @@ function TopNav({
     <FocusProvider value={focusKey}>
       {/* `data-sticky-top`: what the one scroll rule keeps clear (focusScroll.ts). */}
       <nav className="top-nav" ref={ref} data-sticky-top="">
-        <span className="brand">Skrin</span>
+        <span className="brand">
+          <img className="brand-icon" src="/icon.png" alt="" />
+          Skrin
+        </span>
         {NAV_ITEMS.map(([name, label]) => (
           <FocusButton
             key={name}

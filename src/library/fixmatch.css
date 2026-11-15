@@ -67,8 +67,9 @@
 }
 
 .fixmatch button.primary {
-  background: #e50914;
-  border-color: #e50914;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
   font-weight: 600;
 }
 
