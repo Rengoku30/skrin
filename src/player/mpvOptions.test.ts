@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { BASE_MPV_OPTIONS, cacheOptions, shaderCacheOptions } from './mpvOptions';
+import { VOLUME_MAX } from './volume';
 
 const MiB = 1024 * 1024;
 const GiB = 1024 * MiB;
@@ -56,5 +57,16 @@ describe('BASE_MPV_OPTIONS: nothing is fetched that a file only points to', () =
 
   it('never hands an address to yt-dlp', () => {
     expect(BASE_MPV_OPTIONS.ytdl).toBe('no');
+  });
+});
+
+describe('BASE_MPV_OPTIONS: the volume', () => {
+  it('lets mpv take the whole range of the control, boost included', () => {
+    expect(Number(BASE_MPV_OPTIONS['volume-max'])).toBe(VOLUME_MAX);
+  });
+
+  it('leaves the sound path alone: no filter, no passthrough change', () => {
+    expect(BASE_MPV_OPTIONS.af).toBeUndefined();
+    expect(BASE_MPV_OPTIONS['audio-spdif']).toBeUndefined();
   });
 });

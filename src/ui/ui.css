@@ -3402,6 +3402,35 @@ button.cast-member {
   background: #fff;
 }
 
+/* Above the film's own level: the boost, in a warning colour. */
+.volume-boost {
+  background: #f5a524;
+}
+
+/* The film's own level, 100%, across the track where the boost begins. */
+.volume-mark {
+  position: absolute;
+  left: -0.125rem;
+  right: -0.125rem;
+  height: 2px;
+  margin-bottom: -1px;
+  background: rgba(255, 255, 255, 0.85);
+  mix-blend-mode: difference;
+}
+
+.volume-control.boosted .volume-value {
+  color: #f5a524;
+}
+
+.volume-pop-warn {
+  width: 5.5rem;
+  font-size: max(var(--fs-floor), 0.625rem);
+  line-height: 1.3;
+  text-align: center;
+  white-space: normal;
+  color: #f5a524;
+}
+
 .volume-pop-hint {
   font-size: max(var(--fs-floor), 0.625rem);
   opacity: 0.6;

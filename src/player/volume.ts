@@ -18,22 +18,58 @@ import { getSetting, setSetting } from '../metadata/api';
 
 export const VOLUME_KEY = 'volume';
 export const VOLUME_STEP = 5;
-const DEFAULT_VOLUME = 100;
+/** The film's own level: no gain and no cut. Above it is a boost. */
+export const VOLUME_NORMAL = 100;
+/**
+ * The top of the control, as VLC's: twice the film's level on the slider.
+ * mpv is told the same ceiling (mpvOptions.ts `volume-max`). Media3 has no
+ * gain above its own 100, so on Android the top is VOLUME_NORMAL
+ * (engine.ts `volumeMax`).
+ */
+export const VOLUME_MAX = 200;
+const DEFAULT_VOLUME = VOLUME_NORMAL;
 
-/** Clamp to what the control offers: 0–100 in steps. */
-export function clampVolume(value: number): number {
+/** Clamp to what the control offers: 0 to `max` in steps. */
+export function clampVolume(value: number, max: number = VOLUME_MAX): number {
   const stepped = Math.round(value / VOLUME_STEP) * VOLUME_STEP;
-  return Math.min(100, Math.max(0, stepped));
+  return Math.min(max, Math.max(0, stepped));
 }
 
-export async function savedVolume(): Promise<number> {
+/**
+ * The remembered level. A level saved before the boost (0–100) is read as it
+ * was; one saved above `max` — a boost from a computer, read where there is
+ * none — is brought down to it.
+ */
+export async function savedVolume(max: number = VOLUME_MAX): Promise<number> {
   const raw = await getSetting(VOLUME_KEY).catch(() => null);
   const parsed = raw === null ? NaN : Number(raw);
-  return Number.isFinite(parsed) ? clampVolume(parsed) : DEFAULT_VOLUME;
+  return Number.isFinite(parsed) ? clampVolume(parsed, max) : Math.min(DEFAULT_VOLUME, max);
 }
 
 export async function persistVolume(level: number): Promise<void> {
   await setSetting(VOLUME_KEY, String(level));
+}
+
+/**
+ * Where the bar is drawn, as percentages of its height: the fill up to the
+ * film's own level, the boost above it, and the mark at 100. Always a share
+ * of `max`, so 200% fills the bar rather than spilling past its top.
+ */
+export function volumeBar(
+  level: number,
+  max: number
+): { normal: number; boost: number; mark: number | null } {
+  const share = (v: number) => (Math.min(Math.max(v, 0), max) / max) * 100;
+  return {
+    normal: share(Math.min(level, VOLUME_NORMAL)),
+    boost: share(level) - share(Math.min(level, VOLUME_NORMAL)),
+    mark: max > VOLUME_NORMAL ? share(VOLUME_NORMAL) : null,
+  };
+}
+
+/** The level at a height up the bar, 0 at the bottom to 1 at the top. */
+export function levelOnBar(fraction: number, max: number): number {
+  return clampVolume(fraction * max, max);
 }
 
 /** One notch of an ordinary mouse wheel, in pixels (`WheelEvent.deltaMode` 0). */

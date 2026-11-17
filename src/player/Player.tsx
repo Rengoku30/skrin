@@ -353,8 +353,16 @@ export default function Player({ target, onExit, onPlayTarget }: Props) {
   }, []);
 
   // ---- volume -------------------------------------------------------------
-  const { volume, muted, receiver, setVolumeLevel, changeVolume, toggleMute, volumeKey } =
-    useVolume({ fail, showOsd, osdVisible, path: target.path, frameShown: session.frameShown });
+  const {
+    volume,
+    max: volumeMax,
+    muted,
+    receiver,
+    setVolumeLevel,
+    changeVolume,
+    toggleMute,
+    volumeKey,
+  } = useVolume({ fail, showOsd, osdVisible, path: target.path, frameShown: session.frameShown });
   // The wheel over the picture is the volume, as in VLC, mpv and MPC (GitHub
   // #11). Not over a panel or list, which scroll, nor over the volume control,
   // which has its own. With the sound going to a receiver it only brings up
@@ -566,6 +574,7 @@ export default function Player({ target, onExit, onPlayTarget }: Props) {
         steps={steps}
         showTracks={showTracks}
         volume={volume}
+        volumeMax={volumeMax}
         muted={muted}
         receiver={receiver}
         tv={tv}

@@ -1,10 +1,16 @@
 /**
  * The player's volume: the level, mute, and whether a receiver has the
  * volume instead (sound bitstreamed to it, where this level would do
- * nothing). The level is remembered across films (volume.ts).
+ * nothing). The level is remembered across films (volume.ts). It goes to
+ * `max`: 200 where mpv boosts the sound, 100 on Media3, which cannot.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { setMuted as applyMute, setVolume as applyVolume, soundGoesUntouched } from './engine';
+import {
+  setMuted as applyMute,
+  setVolume as applyVolume,
+  soundGoesUntouched,
+  volumeMax,
+} from './engine';
 import { clampVolume, persistVolume, savedVolume } from './volume';
 
 export function useVolume({
@@ -31,11 +37,12 @@ export function useVolume({
   const [muted, setMuted] = useState(false);
   /** Sound bitstreamed to a receiver: this volume would do nothing. */
   const [receiver, setReceiver] = useState(false);
+  const max = volumeMax();
 
   // The remembered level, applied once per player; mpv keeps it across files.
   useEffect(() => {
     let live = true;
-    void savedVolume().then((level) => {
+    void savedVolume(volumeMax()).then((level) => {
       if (!live) return;
       setVolume(level);
       levelNow.current = level;
@@ -52,7 +59,7 @@ export function useVolume({
    */
   const setVolumeLevel = useCallback(
     (value: number, save = true) => {
-      const level = clampVolume(value);
+      const level = clampVolume(value, max);
       levelNow.current = level;
       setVolume(level);
       void applyVolume(level).catch(fail);
@@ -64,7 +71,7 @@ export function useVolume({
       }
       showOsd();
     },
-    [volume, muted, fail, showOsd]
+    [volume, muted, max, fail, showOsd]
   );
 
   const changeVolume = useCallback(
@@ -111,5 +118,5 @@ export function useVolume({
     };
   }, [osdVisible, path, frameShown]);
 
-  return { volume, muted, receiver, setVolumeLevel, changeVolume, toggleMute, volumeKey };
+  return { volume, max, muted, receiver, setVolumeLevel, changeVolume, toggleMute, volumeKey };
 }

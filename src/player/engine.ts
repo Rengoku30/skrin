@@ -46,6 +46,7 @@ import { capabilitiesNow, loadCapabilities } from '../capabilities';
 import { keyCommand, keyFromValue, KEY_PROPERTY, MPV_KEYS } from './mpvKeys';
 import { MOUSE_PROPERTY, parseMouse, type MouseEvent } from './mpvMouse';
 import * as media3 from './media3';
+import { VOLUME_MAX, VOLUME_NORMAL } from './volume';
 import type { Film } from './displayMode';
 import type { FileState } from './session';
 
@@ -847,13 +848,23 @@ export async function addSubtitle(path: string, language: string, title: string)
 }
 
 /**
- * The volume, 0–100. Through `set` rather than `setProperty`: the command
- * takes a string and lets mpv parse it, which sidesteps the typed-number
- * trouble some properties have with the plugin (docs/GOTCHAS.md, `sid` /
- * `aid`).
+ * The top of the volume control here: mpv boosts to VOLUME_MAX (its
+ * `volume-max`, mpvOptions.ts); Media3's gain stops at the film's own level,
+ * so on Android there is no boost (docs/AUDIO_VOLUME_BOOST.md).
+ */
+export function volumeMax(): number {
+  return isMedia3() ? VOLUME_NORMAL : VOLUME_MAX;
+}
+
+/**
+ * The volume, 0–`volumeMax()`; above 100 a boost. Through `set` rather than
+ * `setProperty`: the command takes a string and lets mpv parse it, which
+ * sidesteps the typed-number trouble some properties have with the plugin
+ * (docs/GOTCHAS.md, `sid` / `aid`).
  */
 export async function setVolume(level: number): Promise<void> {
-  if (isMedia3()) return media3.setVolume(level);
+  // The plugin's level is 0–100; never hand it a boost it cannot give.
+  if (isMedia3()) return media3.setVolume(Math.min(level, VOLUME_NORMAL));
   await command('set', ['volume', String(level)]);
 }
 

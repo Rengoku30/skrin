@@ -189,6 +189,10 @@ test('Android: the volume is Media3’s, remembered, and the receiver’s when t
   await expect.poll(async () => (await media3(page)).volume).toBe(95);
   await press(page, '0');
   await expect.poll(async () => (await media3(page)).volume).toBe(100);
+  // No boost on Media3: the top is 100, and nothing above it is sent.
+  await press(page, '0', 2);
+  await expect(page.locator('.volume-control')).toHaveAttribute('aria-label', 'Volume 100%');
+  expect((await media3(page)).volume).toBe(100);
   await press(page, 'm');
   await expect.poll(async () => (await media3(page)).muted).toBe(true);
   await press(page, 'm');

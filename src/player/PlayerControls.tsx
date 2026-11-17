@@ -46,6 +46,8 @@ interface Props {
   hasChapters: boolean;
   showChapters: boolean;
   volume: number;
+  /** The top of the volume: 200 where the sound can be boosted, else 100. */
+  volumeMax: number;
   muted: boolean;
   /** Sound bitstreamed to a receiver: the volume here would do nothing. */
   receiver: boolean;
@@ -82,6 +84,7 @@ function PlayerControls({
   hasChapters,
   showChapters,
   volume,
+  volumeMax,
   muted,
   receiver,
   tv,
@@ -235,6 +238,7 @@ function PlayerControls({
           </FocusButton>
           <VolumeControl
             level={volume}
+            max={volumeMax}
             muted={muted}
             receiver={receiver}
             onChange={onVolumeChange}

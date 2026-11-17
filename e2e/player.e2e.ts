@@ -427,6 +427,54 @@ test('Skip intro, then the episodes either side, and resuming with Start over', 
   await expect.poll(async () => (await mpv(page)).path).toContain('S01E01');
 });
 
+test('the volume boost: to 200% by key and bar, kept across episodes, none for a receiver', async ({
+  page,
+}) => {
+  await play(page, 'series');
+  await expect.poll(async () => (await mpv(page)).path).toContain('S01E01');
+  const control = page.locator('.volume-control');
+
+  // Up past the film's own level is a boost, and the control says so.
+  await press(page, '0');
+  await expect.poll(async () => (await mpv(page)).volume).toBe(105);
+  await expect(page.locator('.volume-control.boosted')).toBeAttached();
+  await expect(control).toHaveAttribute('title', /can clip or distort/);
+  // It stops at 200, however long the key is pressed.
+  await press(page, '0', 22);
+  await expect.poll(async () => (await mpv(page)).volume).toBe(200);
+  await press(page, '-', 10);
+  await expect.poll(async () => (await mpv(page)).volume).toBe(150);
+  await expect.poll(() => call(page, '/src/metadata/api.ts', 'getSetting', 'volume')).toBe('150');
+
+  // The next episode plays at the same level.
+  await press(page, 'n');
+  await expect.poll(async () => (await mpv(page)).path).toContain('S01E02');
+  await expect.poll(async () => (await mpv(page)).volume).toBe(150);
+
+  // The bar is 0 at the bottom to 200 at the top: its middle is 100%.
+  await control.hover();
+  const hit = page.locator('.volume-hit');
+  await expect(hit).toBeVisible();
+  const box = await hit.boundingBox();
+  if (!box) throw new Error('no volume bar');
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  await expect.poll(async () => (await mpv(page)).volume).toBe(100);
+  await expect(page.locator('.volume-control.boosted')).toHaveCount(0);
+  await page.mouse.click(box.x + box.width / 2, box.y + 1);
+  await expect.poll(async () => (await mpv(page)).volume).toBe(200);
+  await expect.poll(() => call(page, '/src/metadata/api.ts', 'getSetting', 'volume')).toBe('200');
+
+  // Sound bitstreamed to a receiver: no boost is claimed, the keys leave it be.
+  await page.evaluate(() => {
+    const f = window as unknown as { __fakeMpv: { audioOutFormat: string } };
+    f.__fakeMpv.audioOutFormat = 'spdif-truehd';
+  });
+  await press(page, '-');
+  await expect(page.locator('.volume-control.receiver')).toBeAttached();
+  await expect(page.locator('.volume-control.boosted')).toHaveCount(0);
+  expect((await mpv(page)).volume).toBe(200);
+});
+
 test('Skip intro steps aside while Audio & subtitles is open, never over its rows', async ({ page }) => {
   // Both sit in the same corner: the button covered the panel's last rows and
   // the ring on them (found on a box).
